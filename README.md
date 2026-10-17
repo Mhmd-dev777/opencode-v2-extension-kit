@@ -18,6 +18,17 @@ OpenCode v2 uses a new plugin API. The official migration guide states that V1 p
 
 The user requested 20 entries. At the time of this repository build, 2 are marked `v2-reviewed`, 14 are `needs-review` or `unverified`, and 4 have no authoritative source and are blocked. This is intentional: the script must not install an unverified or unrelated package under a similar name.
 
+## Secure source builds
+
+Build-required extensions are opt-in and pinned to full Git commits. Preview a source build before changing OpenCode:
+
+```bash
+./bin/opencode-v2-extensions install --profile workflow --allow-risky --allow-build --dry-run
+./bin/opencode-v2-extensions install --profile workflow --allow-risky --allow-build --yes
+```
+
+See [`docs/BUILD-SECURITY.md`](docs/BUILD-SECURITY.md).
+
 ## Profiles and per-extension settings
 
 Each extension has its own folder under `extensions/<id>/` with `options.json`, `profile.json`, and a review README. Choose a profile and generate its OpenCode v2 plugin configuration:

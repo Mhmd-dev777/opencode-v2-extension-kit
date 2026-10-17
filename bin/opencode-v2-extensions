@@ -1,64 +1,41 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 IFS=$'\n\t'
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-MANIFEST="$ROOT_DIR/config/plugins.json"
-PROFILES="$ROOT_DIR/config/profiles.json"
-STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/opencode-v2-extensions"
-STATE_FILE="$STATE_DIR/managed.json"
-CONFIG_DIR="${OPENCODE_CONFIG_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/opencode}"
-MODE="safe"; DRY_RUN=0; YES=0; PROFILE="safe"; ACTION="status"
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"; MANIFEST="$ROOT_DIR/config/plugins.json"; PROFILES="$ROOT_DIR/config/profiles.json"
+STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/opencode-v2-extensions"; STATE_FILE="$STATE_DIR/managed.json"; CONFIG_DIR="${OPENCODE_CONFIG_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/opencode}"
+MODE=safe; DRY_RUN=0; YES=0; ALLOW_BUILD=0; PROFILE=safe; ACTION=status
 usage(){ cat <<'EOF'
 Usage: opencode-v2-extensions <install|remove|status|doctor|render|list-profiles> [options]
 
-install       Install selected, verified package plugins through OpenCode v2.
-remove        Remove only plugins recorded by this script.
-render        Generate config/generated/opencode-v2-extensions.jsonc without installing.
-doctor        Validate OpenCode v2 and the research manifest.
-status        Show every extension's research status and managed state.
-list-profiles List the available customization profiles.
-
 Options:
   --profile NAME      safe, productivity, memory, ui, workflow, all-known
-  --allow-risky       include researched entries needing review (never V1/unresolved)
-  --all               alias for --profile all-known --allow-risky
+  --allow-risky       include researched entries needing review
+  --allow-build       explicitly allow pinned source checkout and build steps
+  --all               --profile all-known --allow-risky
   --dry-run           print operations without changing the host
   --yes               skip confirmation
 EOF
 }
-log(){ printf '[opencode-v2-extensions] %s\n' "$*"; }
-fail(){ printf '[opencode-v2-extensions] ERROR: %s\n' "$*" >&2; exit 1; }
-need_cmd(){ command -v "$1" >/dev/null 2>&1 || fail "'$1' is required."; }
-check_opencode(){ need_cmd opencode; local v; v="$(opencode --version 2>/dev/null || true)"; [[ -n "$v" ]] || fail "OpenCode is installed but its version cannot be read. Install OpenCode v2 first."; [[ "$v" =~ (^|[^0-9])2([.][0-9]+|[^0-9]|$) ]] || fail "OpenCode v2 is required; detected: $v. This tool never installs OpenCode."; opencode plugin --help >/dev/null 2>&1 || fail "Current OpenCode lacks plugin management."; printf '%s\n' "$v"; }
-parse(){ while (($#)); do case "$1" in --profile) shift; PROFILE="${1:-}";; --allow-risky) MODE="risky";; --all) MODE="all"; PROFILE="all-known";; --dry-run) DRY_RUN=1;; --yes) YES=1;; -h|--help) usage; exit 0;; install|remove|uninstall|status|doctor|render|list-profiles) ACTION="$1";; *) fail "Unknown argument: $1";; esac; shift; done; }
+log(){ printf '[opencode-v2-extensions] %s\n' "$*"; }; fail(){ printf '[opencode-v2-extensions] ERROR: %s\n' "$*" >&2; exit 1; }; need_cmd(){ command -v "$1" >/dev/null || fail "'$1' is required."; }
+check_opencode(){ need_cmd opencode; local v; v="$(opencode --version 2>/dev/null || true)"; [[ "$v" =~ (^|[^0-9])2([.][0-9]+|[^0-9]|$) ]] || fail "OpenCode v2 is required; detected: ${v:-missing}. This tool never installs OpenCode."; opencode plugin --help >/dev/null || fail "OpenCode plugin management is unavailable."; printf '%s\n' "$v"; }
+parse(){ while (($#)); do case "$1" in --profile) shift; PROFILE="${1:-}";; --allow-risky) MODE=risky;; --allow-build) ALLOW_BUILD=1;; --all) MODE=all; PROFILE=all-known;; --dry-run) DRY_RUN=1;; --yes) YES=1;; -h|--help) usage; exit 0;; install|remove|uninstall|status|doctor|render|list-profiles) ACTION="$1";; *) fail "Unknown argument: $1";; esac; shift; done; }
 select_json(){ python3 - "$MANIFEST" "$PROFILES" "$PROFILE" "$MODE" <<'PY'
 import json,sys
-m=json.load(open(sys.argv[1])); profiles=json.load(open(sys.argv[2]))['profiles']; name=sys.argv[3]; mode=sys.argv[4]
-if name not in profiles: raise SystemExit(f"unknown profile: {name}")
-pr=profiles[name]; ids=set(pr.get('ids',[])); statuses=set(pr.get('include_status',[])); include_resolved=pr.get('include_resolved',False)
+m=json.load(open(sys.argv[1])); pr=json.load(open(sys.argv[2]))['profiles'][sys.argv[3]]; mode=sys.argv[4]; ids=set(pr.get('ids',[])); sts=set(pr.get('include_status',[])); inc=pr.get('include_resolved',False)
 for p in m['plugins']:
-  selected=(p['id'] in ids) or (p['status'] in statuses) or (include_resolved and p.get('source'))
-  if selected and p.get('source') and p['status'] not in ('v1-blocked','unresolved') and (mode!='safe' or p['status']=='v2-reviewed'):
-    print(json.dumps(p,ensure_ascii=False))
+ if (p['id'] in ids or p['status'] in sts or (inc and p.get('source'))) and p.get('source') and p['status'] not in ('v1-blocked','unresolved') and (mode!='safe' or p['status']=='v2-reviewed'): print(json.dumps(p,ensure_ascii=False))
 PY
 }
-render(){ mkdir -p "$ROOT_DIR/config/generated"; PROFILE_JSON="$PROFILE" MODE_JSON="$MODE" ROOT_JSON="$ROOT_DIR" python3 - "$MANIFEST" "$PROFILES" "$PROFILE" "$MODE" <<'PY'
+render(){ mkdir -p "$ROOT_DIR/config/generated"; ROOT_JSON="$ROOT_DIR" python3 - "$MANIFEST" "$PROFILES" "$PROFILE" "$MODE" <<'PY'
 import json,sys,os
-m=json.load(open(sys.argv[1])); profiles=json.load(open(sys.argv[2]))['profiles']; name=sys.argv[3]; mode=sys.argv[4]; pr=profiles[name]; ids=set(pr.get('ids',[])); statuses=set(pr.get('include_status',[])); inc=pr.get('include_resolved',False); out=[]
+m=json.load(open(sys.argv[1])); pr=json.load(open(sys.argv[2]))['profiles'][sys.argv[3]]; mode=sys.argv[4]; ids=set(pr.get('ids',[])); sts=set(pr.get('include_status',[])); inc=pr.get('include_resolved',False); out=[]
 for p in m['plugins']:
- if not p.get('source') or p['status'] in ('v1-blocked','unresolved'): continue
- if not ((p['id'] in ids) or (p['status'] in statuses) or (inc and p.get('source'))): continue
- if mode=='safe' and p['status']!='v2-reviewed': continue
- options_path=os.path.join(sys.argv[5] if len(sys.argv)>5 else os.path.dirname(os.path.dirname(sys.argv[1])), 'extensions',p['id'],'options.json')
- try: cfg=json.load(open(options_path))
- except Exception: cfg={'options':{}}
- clean={k:v for k,v in cfg.get('options',{}).items() if v not in ('',None,[],{})}
- entry=p['source'] if not clean else {'package':p['source'],'options':clean}
- out.append(entry)
-path=os.path.join(os.environ.get('ROOT_JSON',os.path.dirname(os.path.dirname(sys.argv[1]))),'config/generated/opencode-v2-extensions.jsonc')
-with open(path,'w') as f:
- f.write('{\n  "$schema": "https://opencode.ai/config.json",\n  "plugins": '+json.dumps(out,indent=2,ensure_ascii=False)+'\n}\n')
-print(path)
+ if not p.get('source') or p['status'] in ('v1-blocked','unresolved') or not (p['id'] in ids or p['status'] in sts or (inc and p.get('source'))) or (mode=='safe' and p['status']!='v2-reviewed'): continue
+ cfg={}
+ try: cfg=json.load(open(os.path.join(os.environ['ROOT_JSON'],'extensions',p['id'],'options.json'))).get('options',{})
+ except Exception: pass
+ clean={k:v for k,v in cfg.items() if v not in ('',None,[],{})}; out.append(p['source'] if not clean else {'package':p['source'],'options':clean})
+path=os.path.join(os.environ['ROOT_JSON'],'config/generated/opencode-v2-extensions.jsonc'); open(path,'w').write('{\n  "$schema": "https://opencode.ai/config.json",\n  "plugins": '+json.dumps(out,indent=2,ensure_ascii=False)+'\n}\n'); print(path)
 PY
 }
 list_profiles(){ python3 - "$PROFILES" <<'PY'
@@ -66,23 +43,51 @@ import json,sys
 for k,v in json.load(open(sys.argv[1]))['profiles'].items(): print(f"{k}: {v['description']}")
 PY
 }
-confirm(){ ((YES||DRY_RUN)) && return; read -r -p "Continue with profile '$PROFILE'? [y/N] " a; [[ "$a" == y || "$a" == Y ]] || exit 0; }
-install(){ check_opencode >/dev/null; mkdir -p "$STATE_DIR"; mapfile -t rows < <(select_json); ((${#rows[@]})) || fail "No eligible entries for profile '$PROFILE'. Safe mode installs only v2-reviewed entries."; local ids=() sources=(); for row in "${rows[@]}"; do id="$(python3 -c 'import json,sys; print(json.loads(sys.argv[1])["id"])' "$row")"; source="$(python3 -c 'import json,sys; print(json.loads(sys.argv[1])["source"])' "$row")"; command="$(python3 -c 'import json,sys; print(json.loads(sys.argv[1]).get("install_command", ""))' "$row")"; [[ "$command" != BLOCKED:* && "$command" != BUILD_REQUIRED:* ]] || { log "SKIP $id: $command"; continue; }; ids+=("$id"); sources+=("$source"); if ((DRY_RUN)); then log "DRY RUN: opencode plugin add $source"; else opencode plugin add "$source"; fi; done; ((${#sources[@]})) || fail "Profile contains no directly installable package plugins; follow each extension README for build/port steps."; if (( ! DRY_RUN )); then export STATE_FILE; python3 - "${ids[@]}" -- "${sources[@]}" <<'PY'
+confirm(){ ((YES||DRY_RUN)) && return; read -r -p "Continue with profile '$PROFILE'? [y/N] " a; [[ "$a" =~ ^[yY]$ ]] || exit 0; }
+build_one(){ local row="$1"; [[ "$ALLOW_BUILD" == 1 ]] || { log "SKIP build-required $(python3 -c 'import json,sys;print(json.loads(sys.argv[1])["id"])' "$row"): use --allow-build"; return 2; }; local id repo commit entry dir; eval "$(python3 - "$row" "$STATE_DIR" <<'PY'
+import json,sys,shlex,os
+p=json.loads(sys.argv[1]); b=p['build']; d=os.path.join(sys.argv[2],'sources',p['id'],b['commit']); print('ID='+shlex.quote(p['id'])); print('REPO='+shlex.quote(b['repository'])); print('COMMIT='+shlex.quote(b['commit'])); print('ENTRY='+shlex.quote(os.path.join(d,b['entrypoint']))); print('DIR='+shlex.quote(d))
+PY
+)"; if ((DRY_RUN)); then log "DRY RUN: clone $REPO at $COMMIT and run pinned build in $DIR"; return 0; fi; need_cmd git; need_cmd npm; mkdir -p "$(dirname "$DIR")"; if [[ ! -d "$DIR/.git" ]]; then git clone --filter=blob:none "$REPO" "$DIR" >&2; fi; git -C "$DIR" fetch --quiet origin "$COMMIT" >&2; [[ "$(git -C "$DIR" rev-parse "$COMMIT^{commit}")" == "$COMMIT" ]] || fail "$ID commit verification failed"; git -C "$DIR" checkout --quiet --detach "$COMMIT" >&2; (cd "$DIR" && npm ci --ignore-scripts && npm run build) >&2; [[ -f "$ENTRY" ]] || fail "$ID entrypoint missing: $ENTRY"; grep -Rqs 'Plugin.define\|setup' "$DIR/src" "$DIR/dist" 2>/dev/null || fail "$ID has no V2 setup marker"; printf '%s\n' "$ENTRY"; }
+add_local(){ local entry="$1" id="$2"; mkdir -p "$CONFIG_DIR"; python3 - "$CONFIG_DIR/opencode.json" "$entry" "$id" <<'PY'
+import json,sys,os,tempfile
+path,entry,id=sys.argv[1:]
+try: data=json.load(open(path)) if os.path.exists(path) else {}
+except Exception: raise SystemExit('Refusing to edit non-JSON config; back up/convert JSONC manually.')
+plugins=data.setdefault('plugins',[]); obj={'package':entry}
+if obj not in plugins: plugins.append(obj)
+tmp=path+'.tmp'; open(tmp,'w').write(json.dumps(data,indent=2)+'\n'); os.replace(tmp,path)
+PY
+}
+install(){ check_opencode >/dev/null; mkdir -p "$STATE_DIR"; mapfile -t rows < <(select_json); ((${#rows[@]})) || fail "No eligible entries for profile '$PROFILE'."; local ids=() sources=() local_entries=(); for row in "${rows[@]}"; do id=$(python3 -c 'import json,sys;print(json.loads(sys.argv[1])["id"])' "$row"); cmd=$(python3 -c 'import json,sys;print(json.loads(sys.argv[1]).get("install_command",""))' "$row"); if [[ "$cmd" == BUILD_REQUIRED:* ]]; then entry=$(build_one "$row") || { [[ $? == 2 ]] && continue || exit 1; }; [[ "$DRY_RUN" == 1 ]] || add_local "$entry" "$id"; ids+=("$id"); local_entries+=("$entry"); continue; fi; source=$(python3 -c 'import json,sys;print(json.loads(sys.argv[1])["source"])' "$row"); [[ "$cmd" != BLOCKED:* ]] || { log "SKIP $id: $cmd"; continue; }; if ((DRY_RUN)); then log "DRY RUN: opencode plugin add $source"; else opencode plugin add "$source"; fi; ids+=("$id"); sources+=("$source"); done; if (( ! DRY_RUN )); then export STATE_FILE; python3 - "${ids[@]}" -- "${sources[@]}" --local "${local_entries[@]}" <<'PY'
 import json,sys,os
-sep=sys.argv.index('--'); os.makedirs(os.path.dirname(os.environ['STATE_FILE']),exist_ok=True); json.dump({'managed_ids':sys.argv[1:sep],'managed_sources':sys.argv[sep+1:]},open(os.environ['STATE_FILE'],'w'),indent=2)
+parts=[]; cur=[]
+for x in sys.argv[1:]:
+ if x=='--': parts.append(cur); cur=[]
+ elif x=='--local': parts.append(cur); cur=[]
+ else: cur.append(x)
+parts.append(cur); os.makedirs(os.path.dirname(os.environ['STATE_FILE']),exist_ok=True); json.dump({'managed_ids':parts[0],'managed_sources':parts[1],'managed_local':parts[2]},open(os.environ['STATE_FILE'],'w'),indent=2)
 PY
 fi; }
-remove(){ check_opencode >/dev/null; [[ -f "$STATE_FILE" ]] || fail "No managed state found; refusing to remove arbitrary plugins."; mapfile -t sources < <(python3 - "$STATE_FILE" <<'PY'
-import json,sys
-for x in json.load(open(sys.argv[1])).get('managed_sources',[]): print(x)
+remove(){ check_opencode >/dev/null; [[ -f "$STATE_FILE" ]] || fail "No managed state found; refusing arbitrary removal."; python3 - "$STATE_FILE" "$CONFIG_DIR/opencode.json" <<'PY'
+import json,sys,os
+s=json.load(open(sys.argv[1])); path=sys.argv[2]
+for src in s.get('managed_sources',[]):
+ os.system('opencode plugin remove -- '+__import__('shlex').quote(src))
+if s.get('managed_local') and os.path.exists(path):
+ d=json.load(open(path)); d['plugins']=[x for x in d.get('plugins',[]) if not (isinstance(x,dict) and x.get('package') in s['managed_local'])]; open(path,'w').write(json.dumps(d,indent=2)+'\n')
+import shutil
+for entry in s.get('managed_local',[]):
+ parts=os.path.normpath(entry).split(os.sep)
+ if len(parts)>=4 and parts[-2]=='dist': shutil.rmtree(os.path.join(os.sep,*parts[:-2]),ignore_errors=True)
+os.unlink(sys.argv[1])
 PY
-); ((${#sources[@]})) || { log "Nothing managed."; return; }; confirm; for source in "${sources[@]}"; do if ((DRY_RUN)); then log "DRY RUN: opencode plugin remove $source"; else opencode plugin remove "$source" || log "WARN: removal failed for $source"; fi; done; ((DRY_RUN)) || rm -f "$STATE_FILE"; }
-doctor(){ check_opencode; python3 -m json.tool "$MANIFEST" >/dev/null; python3 -m json.tool "$PROFILES" >/dev/null; log "Research manifest, profiles, and OpenCode v2 CLI are valid."; log "This tool does not install OpenCode."; }
+}
+doctor(){ check_opencode; python3 -m json.tool "$MANIFEST" >/dev/null; python3 -m json.tool "$PROFILES" >/dev/null; log 'Manifest, profiles, and OpenCode v2 CLI are valid.'; }
 status(){ python3 - "$MANIFEST" "$STATE_FILE" <<'PY'
 import json,sys,os
-m=json.load(open(sys.argv[1])); s=json.load(open(sys.argv[2])) if os.path.exists(sys.argv[2]) else {'managed_ids':[]}
-for p in m['plugins']: print(f"{p['id']}: {p['status']} | {p.get('source') or 'UNRESOLVED'}")
-print('Managed:', ', '.join(s.get('managed_ids',[])) or 'none')
+for p in json.load(open(sys.argv[1]))['plugins']: print(f"{p['id']}: {p['status']} | {p.get('source') or 'UNRESOLVED'}")
+s=json.load(open(sys.argv[2])) if os.path.exists(sys.argv[2]) else {}; print('Managed:',', '.join(s.get('managed_ids',[])) or 'none')
 PY
 }
 parse "$@"; case "$ACTION" in install) install;; remove|uninstall) remove;; doctor) doctor;; render) render;; list-profiles) list_profiles;; status) status;; esac
