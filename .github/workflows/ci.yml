@@ -14,6 +14,6 @@ jobs:
       - name: CLI simulation
         run: tests/test.sh
       - name: Secret scan
-        uses: gitleaks/gitleaks-action@v2
+        uses: gitleaks/gitleaks-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
