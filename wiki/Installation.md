@@ -11,7 +11,7 @@ chmod +x /tmp/opencode-v2-extensions
 بعد تنزيل المستودع، يفضّل تشغيل السكربت من نسخة محلية حتى يمكن مراجعة manifest قبل التثبيت:
 
 ```bash
-git clone https://github.com/Alqudimi/opencode-v2-extension-kit.git
+git clone https://github.com/Mhmd-dev777/opencode-v2-extension-kit.git
 cd opencode-v2-extension-kit
 ./bin/opencode-v2-extensions status
 ./bin/opencode-v2-extensions install --dry-run
