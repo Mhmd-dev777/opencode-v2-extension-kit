@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+IFS=$'\n\t'
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+MANIFEST="$ROOT_DIR/config/plugins.json"
+POLICY="$ROOT_DIR/config/policy.json"
+STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/opencode-v2-extensions"
+STATE_FILE="$STATE_DIR/managed.json"
+CONFIG_DIR="${OPENCODE_CONFIG_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/opencode}"
+CONFIG_FILE="$CONFIG_DIR/opencode.jsonc"
+MODE="safe"; DRY_RUN=0; YES=0
+usage(){ cat <<'EOF'
+Usage: opencode-v2-extensions <install|remove|status|doctor|list> [options]
+
+install: add only verified V2 plugins by default; use --allow-risky for reviewed/unknown entries.
+remove: remove only extensions managed by this script (or --all-managed).
+status: show manifest status and managed state.
+doctor: check OpenCode v2, config, and plugin CLI without changing anything.
+
+Options:
+  --allow-risky      permit entries marked needs-review/unverified (never unresolved)
+  --all              include unresolved entries (still fails unless a source is added to manifest)
+  --dry-run          print operations without changing files
+  --yes              skip interactive confirmation
+  --config PATH      use a project/global opencode.jsonc path
+EOF
+}
+log(){ printf '[opencode-v2-extensions] %s\n' "$*"; }
+fail(){ printf '[opencode-v2-extensions] ERROR: %s\n' "$*" >&2; exit 1; }
+need_cmd(){ command -v "$1" >/dev/null 2>&1 || fail "'$1' is required."; }
+check_opencode(){
+  need_cmd opencode
+  local v; v="$(opencode --version 2>/dev/null || true)"
+  [[ -n "$v" ]] || fail "OpenCode is installed but its version could not be read. Install OpenCode v2 first."
+  [[ "$v" =~ (^|[^0-9])2([.][0-9]+|[^0-9]|$) ]] || fail "OpenCode v2 is required; detected: $v. This script will not install or upgrade OpenCode."
+  opencode plugin --help >/dev/null 2>&1 || fail "This OpenCode build lacks 'plugin' management. Use a current OpenCode v2 build."
+  printf '%s\n' "$v"
+}
+parse(){
+  while (($#)); do case "$1" in --allow-risky) MODE="risky";; --all) MODE="all";; --dry-run) DRY_RUN=1;; --yes) YES=1;; --config) shift; CONFIG_FILE="$1";; -h|--help) usage; exit 0;; *) ACTION="${ACTION:-$1}";; esac; shift; done
+  ACTION="${ACTION:-status}"
+}
+python_json(){ python3 - "$@"; }
+entries(){ python_json <<PY
+import json
+m=json.load(open('$MANIFEST'))
+for p in m['plugins']:
+ print('\t'.join(str(p.get(k) or '') for k in ('id','source','status','note')))
+PY
+}
+select_entries(){
+ entries | while IFS=$'\t' read -r id source status note; do
+  [[ -n "$source" ]] || { [[ "$MODE" == all ]] && fail "No verified source for $id: $note"; continue; }
+  case "$MODE:$status" in
+    safe:v2-reviewed|risky:v2-reviewed|risky:needs-review|risky:unverified|all:v2-reviewed|all:needs-review|all:unverified) printf '%s\t%s\t%s\n' "$id" "$source" "$status";;
+    *) :;;
+  esac
+done
+}
+confirm(){ ((YES)) && return; ((DRY_RUN)) && return; read -r -p "Continue? [y/N] " a; [[ "$a" == y || "$a" == Y ]] || exit 0; }
+install(){ check_opencode >/dev/null; mkdir -p "$STATE_DIR" "$CONFIG_DIR"; mapfile -t rows < <(select_entries); ((${#rows[@]})) || fail "No entries are eligible. Safe mode only enables v2-reviewed entries; use --allow-risky after review."; log "Eligible entries: ${#rows[@]}"; printf '%s\n' "${rows[@]}"; confirm; local ids=() sources=(); for row in "${rows[@]}"; do IFS=$'\t' read -r id source status <<<"$row"; ids+=("$id"); sources+=("$source"); if ((DRY_RUN)); then log "DRY RUN: opencode plugin add $source"; else opencode plugin add "$source"; fi; done; if (( ! DRY_RUN )); then export STATE_FILE; python_json "${ids[@]}" -- "${sources[@]}" <<'PY'
+import json,sys,os
+os.makedirs(os.path.dirname(os.environ['STATE_FILE']),exist_ok=True)
+sep=sys.argv.index('--')
+json.dump({'managed_ids':sys.argv[1:sep], 'managed_sources':sys.argv[sep+1:]},open(os.environ['STATE_FILE'],'w'),indent=2)
+PY
+fi
+}
+remove(){ check_opencode >/dev/null; [[ -f "$STATE_FILE" ]] || fail "No managed state found; refusing to remove arbitrary plugins."; mapfile -t sources < <(python_json <<PY
+import json
+for x in json.load(open('$STATE_FILE')).get('managed_sources',[]): print(x)
+PY
+); ((${#sources[@]})) || { log "Nothing managed."; return; }; confirm; for source in "${sources[@]}"; do if ((DRY_RUN)); then log "DRY RUN: opencode plugin remove $source"; else opencode plugin remove "$source" || log "WARN: OpenCode could not remove $source; inspect with opencode plugin list."; fi; done; ((DRY_RUN)) || rm -f "$STATE_FILE"; }
+doctor(){ check_opencode; need_cmd python3; python3 -m json.tool "$MANIFEST" >/dev/null; python3 -m json.tool "$POLICY" >/dev/null; log "Manifest and policy JSON are valid."; log "Config directory: $CONFIG_DIR"; log "No OpenCode package or binary was installed by this tool."; }
+status(){ python3 - <<PY
+import json,os
+m=json.load(open('$MANIFEST')); s=json.load(open('$STATE_FILE')) if os.path.exists('$STATE_FILE') else {'managed_ids':[]}
+print('OpenCode extension manifest')
+for p in m['plugins']: print(f"- {p['id']}: {p['status']} | source={p.get('source') or 'UNRESOLVED'}")
+print('Managed:', ', '.join(s.get('managed_ids',[])) or 'none')
+PY
+}
+parse "$@"; case "$ACTION" in install) install;; remove|uninstall) remove;; doctor) doctor;; status|list) status;; *) usage; exit 2;; esac

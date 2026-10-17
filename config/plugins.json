@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "opencode_major": 2,
+  "plugins": [
+    {
+      "id": "hindsight",
+      "requested": "brycehamrick/opencode-v2-hindsight",
+      "source": "github:brycehamrick/opencode-v2-hindsight",
+      "kind": "git",
+      "status": "unverified",
+      "note": "Repository named by user; verify package entrypoint and V2 API before enabling."
+    },
+    {
+      "id": "dynamic-context-pruning",
+      "requested": "opencode-dynamic-context-pruning",
+      "source": "github:Tarquinen/opencode-dynamic-context-pruning",
+      "kind": "git",
+      "status": "unverified",
+      "note": "Publicly referenced repository; verify current branch/package entrypoint."
+    },
+    {
+      "id": "memini-v2",
+      "requested": "eleboucher/opencode-memini-v2",
+      "source": "github:eleboucher/opencode-memini-v2",
+      "kind": "git",
+      "status": "unverified",
+      "note": "Repository named by user; verify package entrypoint and V2 API before enabling."
+    },
+    {
+      "id": "simple-memory",
+      "requested": "knikolov/opencode-plugin-simple-memory",
+      "source": "github:knikolov/opencode-plugin-simple-memory",
+      "kind": "git",
+      "status": "unverified",
+      "note": "Repository named by user; verify package entrypoint and V2 API before enabling."
+    },
+    {
+      "id": "claude-memory",
+      "requested": "lansya/opencode-plugin-claude-memory",
+      "source": "github:lansya/opencode-plugin-claude-memory",
+      "kind": "git",
+      "status": "unverified",
+      "note": "Repository named by user; verify package entrypoint and V2 API before enabling."
+    },
+    {
+      "id": "todolist",
+      "requested": "opencode-todolist",
+      "source": "opencode-todolist@0.6.1",
+      "kind": "npm",
+      "status": "v2-reviewed",
+      "note": "npm package metadata declares @opencode/plugin >=2.0.0."
+    },
+    {
+      "id": "spec",
+      "requested": "opencode-spec",
+      "source": "github:devcxl/opencode-spec",
+      "kind": "git",
+      "status": "unverified",
+      "note": "Exact public repository resolved; inspect its current package before enabling."
+    },
+    {
+      "id": "lockie-agent",
+      "requested": "oh-y-lockie-agent",
+      "source": "oh-y-lockie-agent@2.0.1",
+      "kind": "npm",
+      "status": "needs-review",
+      "note": "npm package resolved, but repository and V2 API details are not exposed in metadata."
+    },
+    {
+      "id": "shell-magazine",
+      "requested": "opencode-shell-magazine",
+      "source": "opencode-shell-magazine@0.1.4",
+      "kind": "npm",
+      "status": "needs-review",
+      "note": "TUI plugin; package peer dependencies target OpenTUI and should be tested in the exact V2 build."
+    },
+    {
+      "id": "enhanced-composer",
+      "requested": "opencode2-enhanced-composer",
+      "source": "opencode2-enhanced-composer@0.1.0",
+      "kind": "npm",
+      "status": "needs-review",
+      "note": "Package requires Node >=26.4.0; treat as environment-sensitive."
+    },
+    {
+      "id": "mega-skillstate",
+      "requested": "mega-skillstate",
+      "source": "github:megablue/mega-skillstate",
+      "kind": "git",
+      "status": "unverified",
+      "note": "Exact public repository resolved; inspect its current package before enabling."
+    },
+    {
+      "id": "pstack",
+      "requested": "falentio/opencode-pstack",
+      "source": "github:falentio/opencode-pstack",
+      "kind": "git",
+      "status": "unverified",
+      "note": "Repository named by user; verify package entrypoint and V2 API before enabling."
+    },
+    {
+      "id": "engram-learning",
+      "requested": "opencode-engram-learning",
+      "source": "opencode-engram-learning@1.15.1",
+      "kind": "npm",
+      "status": "needs-review",
+      "note": "npm metadata declares peer @opencode-ai/plugin ^1.4.3; do not claim V2 compatibility without a port."
+    },
+    {
+      "id": "headroom",
+      "requested": "opencode-headroom",
+      "source": "opencode-headroom@0.1.0",
+      "kind": "npm",
+      "status": "needs-review",
+      "note": "npm metadata declares peer @opencode-ai/plugin *; inspect entrypoint for V2 API."
+    },
+    {
+      "id": "tasks",
+      "requested": "opencode-tasks",
+      "source": "opencode-tasks@1.0.0",
+      "kind": "npm",
+      "status": "v2-reviewed",
+      "note": "npm package metadata declares @opencode/plugin ^2.0.29."
+    },
+    {
+      "id": "timeline-viewer",
+      "requested": "opencode-timeline-viewer",
+      "source": null,
+      "kind": "unknown",
+      "status": "unresolved",
+      "note": "No authoritative package/repository source was found; intentionally blocked."
+    },
+    {
+      "id": "server-image",
+      "requested": "opencode-server-image",
+      "source": null,
+      "kind": "unknown",
+      "status": "unresolved",
+      "note": "Looks like an image/deployment label, not a verified plugin package; intentionally blocked."
+    },
+    {
+      "id": "chrome-bridge",
+      "requested": "opencode-chrome-bridge",
+      "source": null,
+      "kind": "unknown",
+      "status": "unresolved",
+      "note": "No authoritative package/repository source was found; intentionally blocked."
+    },
+    {
+      "id": "delegation",
+      "requested": "opencode-delegation",
+      "source": "opencode-delegation@0.1.2",
+      "kind": "npm",
+      "status": "needs-review",
+      "note": "npm package metadata has no public repository field and declares @opencode-ai/plugin; inspect before V2 use."
+    },
+    {
+      "id": "morph-plugin",
+      "requested": "opencode-morph-plugin",
+      "source": null,
+      "kind": "unknown",
+      "status": "unresolved",
+      "note": "No authoritative package/repository source was found; intentionally blocked."
+    }
+  ]
+}

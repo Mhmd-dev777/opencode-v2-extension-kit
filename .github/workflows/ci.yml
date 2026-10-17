@@ -1,0 +1,19 @@
+name: CI
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate JSON
+        run: python3 -m json.tool config/plugins.json >/dev/null && python3 -m json.tool config/policy.json >/dev/null
+      - name: Shell syntax
+        run: bash -n bin/opencode-v2-extensions tests/test.sh
+      - name: CLI simulation
+        run: tests/test.sh
+      - name: Secret scan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

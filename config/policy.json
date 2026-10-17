@@ -1,0 +1,10 @@
+{
+  "safe_statuses": [
+    "v2-reviewed"
+  ],
+  "default_mode": "safe",
+  "allow_risky_requires_flag": true,
+  "unresolved_requires_source": true,
+  "config_file": "opencode.jsonc",
+  "restart_after_change": true
+}

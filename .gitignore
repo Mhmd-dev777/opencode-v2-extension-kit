@@ -1,0 +1,10 @@
+*.log
+.DS_Store
+.env
+.env.*
+!.env.example
+node_modules/
+.cache/
+coverage/
+site/.lighthouseci/
+reports/
