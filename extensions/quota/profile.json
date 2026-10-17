@@ -1,0 +1,21 @@
+{
+  "id": "quota",
+  "status": "v2-reviewed",
+  "source": "@slkiser/opencode-quota@5.0.3",
+  "version": "5.0.3",
+  "runtime_requirements": [
+    "OpenCode >=2.0.16",
+    "Node ^22.13.0 or >=23.4.0 for CLI",
+    "Provider logins/API keys and network access for live quota data"
+  ],
+  "managed_files": [
+    "opencode.json(c)",
+    "opencode-quota/quota-toast.json(c)",
+    "$XDG_CACHE_HOME/opencode/quota-export.json (optional)"
+  ],
+  "verification": [
+    "/quota_status",
+    "/quota",
+    "npx --yes @slkiser/opencode-quota@5.0.3 status --json"
+  ]
+}

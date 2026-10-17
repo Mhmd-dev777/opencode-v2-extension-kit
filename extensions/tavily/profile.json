@@ -1,0 +1,24 @@
+{
+  "id": "tavily",
+  "status": "v2-reviewed",
+  "source": "opencode-tavily@1.0.0",
+  "version": "1.0.0",
+  "runtime_requirements": [
+    "OpenCode V2",
+    "tvly on PATH",
+    "Tavily account and TAVILY_API_KEY or OAuth",
+    "Network access",
+    "Writable .tavily/"
+  ],
+  "managed_files": [
+    "opencode.json(c)",
+    "skills/tavily/",
+    ".tavily/",
+    "tvly executable"
+  ],
+  "verification": [
+    "tvly --status",
+    "search with --client-name opencode",
+    "extract/map/crawl smoke tests"
+  ]
+}

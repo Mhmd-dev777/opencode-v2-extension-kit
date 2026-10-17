@@ -1,0 +1,22 @@
+{
+  "id": "notifier",
+  "status": "v2-reviewed",
+  "source": "@mohak34/opencode-notifier@1.0.0",
+  "version": "1.0.0",
+  "runtime_requirements": [
+    "OpenCode V2 plugin API",
+    "Interactive CLI for local popups/sounds",
+    "Linux notify-send/libnotify and audio player where applicable"
+  ],
+  "managed_files": [
+    "opencode.json(c)",
+    "~/.config/opencode/opencode-notifier.json",
+    "opencode-notifier-state.json",
+    "optional GNOME extension directory"
+  ],
+  "verification": [
+    "permission/completion/error/question events",
+    "OPENCODE_NOTIFIER_DEBUG=1",
+    "test harmless event command"
+  ]
+}

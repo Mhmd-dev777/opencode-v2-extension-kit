@@ -1,0 +1,13 @@
+{
+  "options": {
+    "recallMode": "direct",
+    "similarityThreshold": 0.72,
+    "maxMemories": 5,
+    "maxProjectMemories": 10,
+    "maxProfileItems": 5,
+    "injectProfile": true,
+    "compactionEnabled": true,
+    "captureEveryNTurns": 0,
+    "filterPrompt": "Never store secrets, credentials, API keys, private keys, or personal data."
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "options": {
+    "embeddingProvider": "ollama",
+    "embeddingModel": "nomic-embed-text",
+    "autoIndex": true,
+    "watchFiles": true,
+    "maxFileSize": 1048576,
+    "maxResults": 8,
+    "hybridWeight": 0.65,
+    "exclude": [
+      ".git/**",
+      "node_modules/**",
+      "dist/**",
+      "build/**",
+      ".env*",
+      "**/*.pem",
+      "**/*.key",
+      ".opencode/index/**"
+    ]
+  }
+}

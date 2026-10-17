@@ -1,0 +1,14 @@
+{
+  "options": {
+    "mergeOnCleanup": true,
+    "stallThresholdMs": 300000,
+    "stallMinSteps": 5,
+    "stallTokenThreshold": 200,
+    "timeoutMs": 1800000,
+    "rateLimitCapacity": 10,
+    "dashboardPort": 0,
+    "peerMessageLimit": 5,
+    "modelAssignment": "default",
+    "promptForModels": false
+  }
+}

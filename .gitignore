@@ -8,3 +8,10 @@ node_modules/
 coverage/
 site/.lighthouseci/
 reports/
+
+# Generated/indexed state from verified OpenCode extensions
+.tavily/
+.opencode/index/
+.opencode/ensemble.db
+.opencode/ensemble.db-*
+.supermemory-opencode.log

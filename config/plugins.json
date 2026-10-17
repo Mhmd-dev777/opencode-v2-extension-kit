@@ -456,6 +456,273 @@
       ],
       "research_report": "research/20-morph-plugin.md",
       "source_verified": true
+    },
+    {
+      "id": "quota",
+      "requested": "slkiser/opencode-quota@5.0.3",
+      "source": "@slkiser/opencode-quota@5.0.3",
+      "kind": "npm",
+      "status": "v2-reviewed",
+      "note": "Verified V2 Plugin.define/setup and npm provenance; requires OpenCode >=2.0.16 and optional provider credentials.",
+      "install_command": "opencode plugin add @slkiser/opencode-quota@5.0.3",
+      "documented_options": [
+        "core",
+        "enabledProviders",
+        "quotaProviders",
+        "minIntervalMs",
+        "requestTimeoutMs",
+        "formatStyle",
+        "quotaProjection",
+        "tuiSidebarPanel",
+        "export",
+        "telemetry",
+        "provider overrides"
+      ],
+      "recommended_options": [
+        "Run the exact-version init --dry-run before applying; keep credentials in OpenCode integration storage/environment."
+      ],
+      "research_report": "research/21-quota.md",
+      "source_verified": true,
+      "version": "5.0.3",
+      "requirements": [
+        "OpenCode >=2.0.16",
+        "Node ^22.13.0 or >=23.4.0 for CLI",
+        "Provider logins/API keys and network access for live quota data"
+      ],
+      "files": [
+        "opencode.json(c)",
+        "opencode-quota/quota-toast.json(c)",
+        "$XDG_CACHE_HOME/opencode/quota-export.json (optional)"
+      ],
+      "verification": [
+        "/quota_status",
+        "/quota",
+        "npx --yes @slkiser/opencode-quota@5.0.3 status --json"
+      ]
+    },
+    {
+      "id": "codebase-index",
+      "requested": "open-codebase-index@0.36.3",
+      "source": "open-codebase-index@0.36.3",
+      "kind": "npm",
+      "status": "v2-reviewed",
+      "note": "Verified V2 default setup entrypoint, native binaries, and published tarball integrity.",
+      "install_command": "opencode plugin add open-codebase-index@0.36.3",
+      "documented_options": [
+        "embeddingProvider",
+        "embeddingModel",
+        "autoIndex",
+        "watchFiles",
+        "maxFileSize",
+        "maxChunksPerFile",
+        "include",
+        "exclude",
+        "maxResults",
+        "hybridWeight",
+        "rerankTopN",
+        "knowledgeBases"
+      ],
+      "recommended_options": [
+        "Use local Ollama where privacy matters; exclude secrets/generated trees and keep the index directory out of Git."
+      ],
+      "research_report": "research/22-codebase-index.md",
+      "source_verified": true,
+      "version": "0.36.3",
+      "requirements": [
+        "OpenCode V2",
+        "Node >=22.13.0",
+        "Embedding provider: Ollama, OpenAI, Google, or custom endpoint",
+        "Writable .opencode/index/"
+      ],
+      "files": [
+        ".opencode/codebase-index.json",
+        "~/.config/opencode/codebase-index.json",
+        ".opencode/index/",
+        "~/.opencode/global-index/"
+      ],
+      "verification": [
+        "index_status or /status",
+        "index_codebase or /index",
+        "codebase_search and codebase_context"
+      ]
+    },
+    {
+      "id": "supermemory",
+      "requested": "opencode-supermemory@2.0.17",
+      "source": "opencode-supermemory@2.0.17",
+      "kind": "npm",
+      "status": "v2-reviewed",
+      "note": "Verified published V2 server entrypoint and runtime hooks; requires Supermemory API key for active use.",
+      "install_command": "bunx opencode-supermemory@2.0.17 install --no-tui",
+      "documented_options": [
+        "similarityThreshold",
+        "maxMemories",
+        "maxProjectMemories",
+        "maxProfileItems",
+        "injectProfile",
+        "filterPrompt",
+        "compactionEnabled",
+        "recallMode",
+        "captureEveryNTurns",
+        "projectContainerTag",
+        "userContainerTag"
+      ],
+      "recommended_options": [
+        "Pin generated unversioned entries to @2.0.17 and store SUPERMEMORY_API_KEY outside config."
+      ],
+      "research_report": "research/23-supermemory.md",
+      "source_verified": true,
+      "version": "2.0.17",
+      "requirements": [
+        "OpenCode V2 plugin API",
+        "Bun for bunx installer",
+        "SUPERMEMORY_API_KEY or login",
+        "Network access to api.supermemory.ai"
+      ],
+      "files": [
+        "opencode.json(c)",
+        "supermemory.json(c)",
+        "~/.supermemory-opencode/credentials.json",
+        "~/.config/opencode/commands/",
+        ".opencode-supermemory.log"
+      ],
+      "verification": [
+        "supermemory status",
+        "inspect v2 plugin registered log",
+        "safe remember then recall in a new session"
+      ]
+    },
+    {
+      "id": "ensemble",
+      "requested": "hueyexe/opencode-ensemble@0.18.0",
+      "source": "@hueyexe/opencode-ensemble@0.18.0",
+      "kind": "npm",
+      "status": "v2-reviewed",
+      "note": "Release and source verify native OpenCode V2 Plugin.define/setup; requires Node >=24 or Bun >=1.0 for sqlite.",
+      "install_command": "opencode plugin add @hueyexe/opencode-ensemble@0.18.0",
+      "documented_options": [
+        "mergeOnCleanup",
+        "stallThresholdMs",
+        "stallMinSteps",
+        "stallTokenThreshold",
+        "timeoutMs",
+        "rateLimitCapacity",
+        "dashboardPort",
+        "peerMessageLimit",
+        "defaultModel",
+        "modelPool",
+        "modelsByAgent",
+        "modelAssignment"
+      ],
+      "recommended_options": [
+        "Set dashboardPort to 0 unless localhost dashboard is explicitly needed; scope worktree permission."
+      ],
+      "research_report": "research/24-ensemble.md",
+      "source_verified": true,
+      "version": "0.18.0",
+      "requirements": [
+        "OpenCode V2",
+        "Node >=24 or Bun >=1.0",
+        "Writable ~/.config/opencode/ensemble.db",
+        "Git for worktree agents"
+      ],
+      "files": [
+        "~/.config/opencode/ensemble.json",
+        "<project>/.opencode/ensemble.json",
+        "~/.config/opencode/ensemble.db",
+        "~/.local/share/opencode/worktree/"
+      ],
+      "verification": [
+        "/api/health on localhost:4747 if enabled",
+        "team_create/team_spawn with worktree:false",
+        "database rehydration after restart"
+      ]
+    },
+    {
+      "id": "tavily",
+      "requested": "opencode-tavily",
+      "source": "opencode-tavily@1.0.0",
+      "kind": "npm",
+      "status": "v2-reviewed",
+      "note": "Verified V2 setup hooks and repository tests; requires separate tvly CLI and Tavily authentication.",
+      "install_command": "opencode plugin add opencode-tavily@1.0.0",
+      "documented_options": [
+        "tvly CLI flags",
+        "search depth",
+        "max-results",
+        "domains",
+        "time-range",
+        "extract depth",
+        "crawl breadth/depth",
+        "output directory"
+      ],
+      "recommended_options": [
+        "Pin npm 1.0.0, install tvly separately, and keep .tavily outputs ignored unless intentionally committed."
+      ],
+      "research_report": "research/25-tavily.md",
+      "source_verified": true,
+      "version": "1.0.0",
+      "requirements": [
+        "OpenCode V2",
+        "tvly on PATH",
+        "Tavily account and TAVILY_API_KEY or OAuth",
+        "Network access",
+        "Writable .tavily/"
+      ],
+      "files": [
+        "opencode.json(c)",
+        "skills/tavily/",
+        ".tavily/",
+        "tvly executable"
+      ],
+      "verification": [
+        "tvly --status",
+        "search with --client-name opencode",
+        "extract/map/crawl smoke tests"
+      ]
+    },
+    {
+      "id": "notifier",
+      "requested": "mohak34/opencode-notifier@1.0.0",
+      "source": "@mohak34/opencode-notifier@1.0.0",
+      "kind": "npm",
+      "status": "v2-reviewed",
+      "note": "Verified V2 setupV2 and TUI exports; system notification dependencies vary by OS.",
+      "install_command": "opencode plugin add @mohak34/opencode-notifier@1.0.0",
+      "documented_options": [
+        "notification events",
+        "sound",
+        "bell",
+        "timeout",
+        "title",
+        "project",
+        "focus suppression",
+        "onClickCommand",
+        "deferCompleteUntilChildrenIdle",
+        "notificationSystem"
+      ],
+      "recommended_options": [
+        "Pin 1.0.0 and disable matching built-in notifications to prevent duplicate alerts; use harmless test commands."
+      ],
+      "research_report": "research/26-notifier.md",
+      "source_verified": true,
+      "version": "1.0.0",
+      "requirements": [
+        "OpenCode V2 plugin API",
+        "Interactive CLI for local popups/sounds",
+        "Linux notify-send/libnotify and audio player where applicable"
+      ],
+      "files": [
+        "opencode.json(c)",
+        "~/.config/opencode/opencode-notifier.json",
+        "opencode-notifier-state.json",
+        "optional GNOME extension directory"
+      ],
+      "verification": [
+        "permission/completion/error/question events",
+        "OPENCODE_NOTIFIER_DEBUG=1",
+        "test harmless event command"
+      ]
     }
   ]
 }

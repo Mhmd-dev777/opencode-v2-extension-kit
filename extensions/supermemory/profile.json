@@ -1,0 +1,24 @@
+{
+  "id": "supermemory",
+  "status": "v2-reviewed",
+  "source": "opencode-supermemory@2.0.17",
+  "version": "2.0.17",
+  "runtime_requirements": [
+    "OpenCode V2 plugin API",
+    "Bun for bunx installer",
+    "SUPERMEMORY_API_KEY or login",
+    "Network access to api.supermemory.ai"
+  ],
+  "managed_files": [
+    "opencode.json(c)",
+    "supermemory.json(c)",
+    "~/.supermemory-opencode/credentials.json",
+    "~/.config/opencode/commands/",
+    ".opencode-supermemory.log"
+  ],
+  "verification": [
+    "supermemory status",
+    "inspect v2 plugin registered log",
+    "safe remember then recall in a new session"
+  ]
+}

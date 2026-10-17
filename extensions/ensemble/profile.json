@@ -1,0 +1,23 @@
+{
+  "id": "ensemble",
+  "status": "v2-reviewed",
+  "source": "@hueyexe/opencode-ensemble@0.18.0",
+  "version": "0.18.0",
+  "runtime_requirements": [
+    "OpenCode V2",
+    "Node >=24 or Bun >=1.0",
+    "Writable ~/.config/opencode/ensemble.db",
+    "Git for worktree agents"
+  ],
+  "managed_files": [
+    "~/.config/opencode/ensemble.json",
+    "<project>/.opencode/ensemble.json",
+    "~/.config/opencode/ensemble.db",
+    "~/.local/share/opencode/worktree/"
+  ],
+  "verification": [
+    "/api/health on localhost:4747 if enabled",
+    "team_create/team_spawn with worktree:false",
+    "database rehydration after restart"
+  ]
+}

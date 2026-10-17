@@ -1,0 +1,23 @@
+{
+  "id": "codebase-index",
+  "status": "v2-reviewed",
+  "source": "open-codebase-index@0.36.3",
+  "version": "0.36.3",
+  "runtime_requirements": [
+    "OpenCode V2",
+    "Node >=22.13.0",
+    "Embedding provider: Ollama, OpenAI, Google, or custom endpoint",
+    "Writable .opencode/index/"
+  ],
+  "managed_files": [
+    ".opencode/codebase-index.json",
+    "~/.config/opencode/codebase-index.json",
+    ".opencode/index/",
+    "~/.opencode/global-index/"
+  ],
+  "verification": [
+    "index_status or /status",
+    "index_codebase or /index",
+    "codebase_search and codebase_context"
+  ]
+}

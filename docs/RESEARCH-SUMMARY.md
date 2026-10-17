@@ -1,6 +1,6 @@
 # Research-backed compatibility summary
 
-The 20 requested extensions were researched independently. Each report in `research/` records the authoritative source, exact install target, OpenCode V2 entrypoint evidence, peer dependencies, documented settings, requirements, verification steps, and warnings.
+The 26 requested extensions were researched independently. Each report in `research/` records the authoritative source, exact install target, OpenCode V2 entrypoint evidence, peer dependencies, documented settings, requirements, verification steps, and warnings.
 
 The installer now uses the following policy:
 
@@ -11,7 +11,7 @@ The installer now uses the following policy:
 - `v1-blocked`: published artifact is a V1 implementation and must not be enabled in OpenCode V2.
 - `unresolved`: no authoritative exact package or repository source was found.
 
-The current safe profile includes the extensions with a V2-shaped entrypoint and a reproducible source/version. It intentionally does not include `dynamic-context-pruning`, `engram-learning`, or the source-only/conditional integrations until their exact target-host runtime tests are completed. It never includes V1-blocked or unresolved entries.
+The current safe profile includes the extensions with a V2-shaped entrypoint and a reproducible source/version. It includes the six newly verified extensions (`quota`, `codebase-index`, `supermemory`, `ensemble`, `tavily`, and `notifier`). It intentionally does not include `dynamic-context-pruning`, `engram-learning`, or the source-only/conditional integrations until their exact target-host runtime tests are completed. It never includes V1-blocked or unresolved entries.
 
 ## Strong customization model
 

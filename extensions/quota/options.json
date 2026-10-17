@@ -1,0 +1,24 @@
+{
+  "options": {
+    "core": {
+      "enabled": true,
+      "minIntervalMs": 120000,
+      "requestTimeoutMs": 10000,
+      "formatStyle": "singleWindow",
+      "quotaProjection": "runway",
+      "percentDisplayMode": "remaining"
+    },
+    "tui": {
+      "enableToast": true,
+      "showOnIdle": true,
+      "showOnQuestion": true,
+      "tuiCommandDisplay": "dialog"
+    },
+    "export": {
+      "enabled": false
+    },
+    "telemetry": {
+      "enabled": false
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "options": {
+    "suppressWhenFocused": true,
+    "focusOnClick": false,
+    "deferCompleteUntilChildrenIdle": true,
+    "deferredCompleteTimeout": 30000,
+    "events": {
+      "permission": {
+        "notification": true,
+        "sound": true
+      },
+      "complete": {
+        "notification": true,
+        "sound": true
+      },
+      "error": {
+        "notification": true,
+        "sound": true
+      },
+      "question": {
+        "notification": true,
+        "sound": false
+      },
+      "subagent_complete": {
+        "notification": true,
+        "sound": false
+      }
+    }
+  }
+}
