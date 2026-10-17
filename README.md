@@ -23,8 +23,8 @@ The user requested 20 entries. At the time of this repository build, 2 are marke
 Build-required extensions are opt-in and pinned to full Git commits. Preview a source build before changing OpenCode:
 
 ```bash
-./bin/opencode-v2-extensions install --profile workflow --allow-risky --allow-build --dry-run
-./bin/opencode-v2-extensions install --profile workflow --allow-risky --allow-build --yes
+./bin/opencode-v2-extensions install --profile source-builds --allow-risky --allow-build --dry-run
+./bin/opencode-v2-extensions install --profile source-builds --allow-risky --allow-build --yes
 ```
 
 See [`docs/BUILD-SECURITY.md`](docs/BUILD-SECURITY.md).

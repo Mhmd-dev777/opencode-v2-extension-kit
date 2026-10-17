@@ -53,6 +53,13 @@
       "description": "Every entry with an authoritative source; unresolved names remain blocked.",
       "allow_risky": true,
       "include_resolved": true
+    },
+    "source-builds": {
+      "description": "Pinned source builds only; requires --allow-build and explicit review.",
+      "allow_risky": true,
+      "ids": [
+        "spec"
+      ]
     }
   }
 }
