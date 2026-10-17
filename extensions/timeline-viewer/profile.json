@@ -1,0 +1,12 @@
+{
+  "id": "timeline-viewer",
+  "source": null,
+  "status": "unresolved",
+  "install_command": "BLOCKED: no authoritative npm or Git source found",
+  "documented_options": [],
+  "recommended_options": [
+    "User must provide an exact official repository or package."
+  ],
+  "research_report": "research/16-timeline-viewer.md",
+  "customization_policy": "Only documented options; no guessed keys."
+}

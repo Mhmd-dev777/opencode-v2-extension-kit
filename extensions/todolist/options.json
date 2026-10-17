@@ -1,0 +1,15 @@
+{
+  "enabled": true,
+  "options": {
+    "auto-todos.json": "",
+    "priority": "",
+    "always": "",
+    "match": "",
+    "order": "",
+    "deduplicate": "",
+    "/todo-settings": ""
+  },
+  "environment": {},
+  "permissions": [],
+  "install_command": "opencode plugin add opencode-todolist@0.6.1"
+}

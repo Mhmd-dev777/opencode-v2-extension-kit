@@ -1,0 +1,19 @@
+{
+  "enabled": false,
+  "options": {
+    "enabled": "",
+    "autoUpdate": "",
+    "pruneNotification": "",
+    "compress.mode": "",
+    "compress.permission": "",
+    "protectedTools": "",
+    "protectedFilePatterns": "",
+    "strategies.deduplication.enabled": "",
+    "strategies.purgeErrors.enabled": "",
+    "turnProtection.turns": "",
+    "manualMode.enabled": ""
+  },
+  "environment": {},
+  "permissions": [],
+  "install_command": "opencode plugin add @tarquinen/opencode-dcp@3.2.0"
+}

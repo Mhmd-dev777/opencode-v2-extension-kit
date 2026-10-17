@@ -1,0 +1,15 @@
+{
+  "enabled": true,
+  "options": {
+    "autoLoad": "",
+    "autoSave": "",
+    "autoHookTimeoutMs": "",
+    "contextLimit": "",
+    "contextMaxChars": "",
+    "contextMinScore": "",
+    "autoSaveScope": ""
+  },
+  "environment": {},
+  "permissions": [],
+  "install_command": "opencode plugin add '@knikolov/opencode-plugin-simple-memory@2.0.0'"
+}

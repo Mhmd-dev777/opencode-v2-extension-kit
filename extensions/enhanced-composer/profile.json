@@ -1,0 +1,18 @@
+{
+  "id": "enhanced-composer",
+  "source": "opencode2-enhanced-composer@0.1.0",
+  "status": "v2-reviewed",
+  "install_command": "opencode plugin add opencode2-enhanced-composer@0.1.0",
+  "documented_options": [
+    "layout",
+    "appearance",
+    "overflow.preset",
+    "refreshHz",
+    "bytesPerToken"
+  ],
+  "recommended_options": [
+    "Requires Node >=26.4.0 and OpenCode >=2.0.11; TUI cli.json configuration."
+  ],
+  "research_report": "research/10-enhanced-composer.md",
+  "customization_policy": "Only documented options; no guessed keys."
+}

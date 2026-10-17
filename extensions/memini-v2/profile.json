@@ -1,0 +1,27 @@
+{
+  "id": "memini-v2",
+  "source": "@eleboucher/opencode-memini-v2@0.7.36",
+  "status": "v2-reviewed",
+  "install_command": "opencode plugin add @eleboucher/opencode-memini-v2@0.7.36",
+  "documented_options": [
+    "base_url",
+    "namespace",
+    "recall",
+    "capture",
+    "capture_child_sessions",
+    "recall_limit",
+    "recall_max_tokens",
+    "recall_min_score",
+    "inject_cooldown_ms",
+    "inject_cooldown_prompts",
+    "recall_budget_ms",
+    "timeout_ms",
+    "fallback_on_error",
+    "auto_update"
+  ],
+  "recommended_options": [
+    "Requires a running Memini server; keep MEMINI_API_KEY and HTTPS settings outside Git."
+  ],
+  "research_report": "research/03-memini-v2.md",
+  "customization_policy": "Only documented options; no guessed keys."
+}

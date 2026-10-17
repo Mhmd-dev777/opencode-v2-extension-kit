@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "options": {
+    "telemetry": "",
+    "agent.<name>.model": "",
+    "agent.<name>.disable": "",
+    "mcp.<name>.enabled": "",
+    "updateCheck.enabled": "",
+    "updateCheck.intervalHours": "",
+    "target.chip": "",
+    "target.family": ""
+  },
+  "environment": {},
+  "permissions": [],
+  "install_command": "opencode plugin add oh-y-lockie-agent@2.0.1"
+}

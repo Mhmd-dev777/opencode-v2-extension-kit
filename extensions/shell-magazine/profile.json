@@ -1,0 +1,23 @@
+{
+  "id": "shell-magazine",
+  "source": "opencode-shell-magazine@0.1.4",
+  "status": "v2-reviewed",
+  "install_command": "opencode plugin add opencode-shell-magazine@0.1.4",
+  "documented_options": [
+    "max entries",
+    "order",
+    "time format",
+    "show cwd",
+    "show exit code",
+    "show subagents",
+    "footer indicator",
+    "border",
+    "notification threshold",
+    "historyDirectory"
+  ],
+  "recommended_options": [
+    "TUI-only; customize through its slash-command settings rather than invented JSON keys."
+  ],
+  "research_report": "research/09-shell-magazine.md",
+  "customization_policy": "Only documented options; no guessed keys."
+}

@@ -1,0 +1,22 @@
+{
+  "id": "tasks",
+  "source": "opencode-tasks@1.0.0",
+  "status": "v2-reviewed",
+  "install_command": "opencode plugin add opencode-tasks@1.0.0 && bunx opencode-tasks@1.0.0 --install",
+  "documented_options": [
+    "schedule",
+    "cwd",
+    "description",
+    "session_name",
+    "model",
+    "agent",
+    "timeout",
+    "permission",
+    "enabled"
+  ],
+  "recommended_options": [
+    "Requires OpenCode >=2.0.29 and Bun; scheduler install is separate from plugin add."
+  ],
+  "research_report": "research/15-tasks.md",
+  "customization_policy": "Only documented options; no guessed keys."
+}

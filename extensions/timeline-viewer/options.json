@@ -1,0 +1,7 @@
+{
+  "enabled": false,
+  "options": {},
+  "environment": {},
+  "permissions": [],
+  "install_command": "BLOCKED: no authoritative npm or Git source found"
+}

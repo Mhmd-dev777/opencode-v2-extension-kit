@@ -1,0 +1,15 @@
+{
+  "enabled": false,
+  "options": {
+    "enabled": "",
+    "min_tokens_to_compress": "",
+    "live_zone_only": "",
+    "real_time": "",
+    "cache_align": "",
+    "verbose": "",
+    "ccr_db_path": ""
+  },
+  "environment": {},
+  "permissions": [],
+  "install_command": "BLOCKED: published package is V1-only"
+}

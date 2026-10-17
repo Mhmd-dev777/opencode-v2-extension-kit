@@ -1,0 +1,12 @@
+{
+  "id": "pstack",
+  "source": "@falentio/opencode-pstack@1.1.0",
+  "status": "v2-reviewed",
+  "install_command": "opencode plugin add @falentio/opencode-pstack@1.1.0",
+  "documented_options": [],
+  "recommended_options": [
+    "No documented plugin-specific options; use native skills/agents for customization."
+  ],
+  "research_report": "research/12-pstack.md",
+  "customization_policy": "Only documented options; no guessed keys."
+}

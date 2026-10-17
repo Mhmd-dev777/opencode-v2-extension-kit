@@ -1,0 +1,15 @@
+{
+  "enabled": false,
+  "options": {
+    "MORPH_API_KEY": "",
+    "MORPH_COMPACT": "",
+    "MORPH_EDIT": "",
+    "MORPH_WARPGREP": "",
+    "MORPH_WARPGREP_GITHUB": "",
+    "MORPH_COMPACT_RATIO": "",
+    "MORPH_COMPACT_PRESERVE_RECENT": ""
+  },
+  "environment": {},
+  "permissions": [],
+  "install_command": "BLOCKED: scoped package is V1 API despite version 2"
+}

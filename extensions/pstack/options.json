@@ -1,0 +1,7 @@
+{
+  "enabled": true,
+  "options": {},
+  "environment": {},
+  "permissions": [],
+  "install_command": "opencode plugin add @falentio/opencode-pstack@1.1.0"
+}

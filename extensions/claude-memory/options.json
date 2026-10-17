@@ -1,0 +1,10 @@
+{
+  "enabled": false,
+  "options": {
+    "once": "",
+    "debug": ""
+  },
+  "environment": {},
+  "permissions": [],
+  "install_command": "BLOCKED: published candidate targets OpenCode V1"
+}

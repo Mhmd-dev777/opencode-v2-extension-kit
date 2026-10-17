@@ -1,0 +1,20 @@
+{
+  "id": "simple-memory",
+  "source": "@knikolov/opencode-plugin-simple-memory@2.0.0",
+  "status": "v2-reviewed",
+  "install_command": "opencode plugin add '@knikolov/opencode-plugin-simple-memory@2.0.0'",
+  "documented_options": [
+    "autoLoad",
+    "autoSave",
+    "autoHookTimeoutMs",
+    "contextLimit",
+    "contextMaxChars",
+    "contextMinScore",
+    "autoSaveScope"
+  ],
+  "recommended_options": [
+    "Uses Bun filesystem APIs; verify runtime and repository identity before production."
+  ],
+  "research_report": "research/04-simple-memory.md",
+  "customization_policy": "Only documented options; no guessed keys."
+}

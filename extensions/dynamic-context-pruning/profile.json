@@ -1,0 +1,24 @@
+{
+  "id": "dynamic-context-pruning",
+  "source": "@tarquinen/opencode-dcp@3.2.0",
+  "status": "needs-review",
+  "install_command": "opencode plugin add @tarquinen/opencode-dcp@3.2.0",
+  "documented_options": [
+    "enabled",
+    "autoUpdate",
+    "pruneNotification",
+    "compress.mode",
+    "compress.permission",
+    "protectedTools",
+    "protectedFilePatterns",
+    "strategies.deduplication.enabled",
+    "strategies.purgeErrors.enabled",
+    "turnProtection.turns",
+    "manualMode.enabled"
+  ],
+  "recommended_options": [
+    "Package contains a real V2 entrypoint but declares a V1-oriented peer; test exact host."
+  ],
+  "research_report": "research/02-dynamic-context-pruning.md",
+  "customization_policy": "Only documented options; no guessed keys."
+}

@@ -1,0 +1,21 @@
+{
+  "id": "lockie-agent",
+  "source": "oh-y-lockie-agent@2.0.1",
+  "status": "v2-reviewed",
+  "install_command": "opencode plugin add oh-y-lockie-agent@2.0.1",
+  "documented_options": [
+    "telemetry",
+    "agent.<name>.model",
+    "agent.<name>.disable",
+    "mcp.<name>.enabled",
+    "updateCheck.enabled",
+    "updateCheck.intervalHours",
+    "target.chip",
+    "target.family"
+  ],
+  "recommended_options": [
+    "Set telemetry=false explicitly and audit default MCP/network access."
+  ],
+  "research_report": "research/08-lockie-agent.md",
+  "customization_policy": "Only documented options; no guessed keys."
+}

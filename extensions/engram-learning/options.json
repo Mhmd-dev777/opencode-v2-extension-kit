@@ -1,0 +1,14 @@
+{
+  "enabled": false,
+  "options": {
+    "ENGRAM_HOME": "",
+    "/learn": "",
+    "/review-loop": "",
+    "/coach": "",
+    "focus": "",
+    "visuals": ""
+  },
+  "environment": {},
+  "permissions": [],
+  "install_command": "opencode plugin add opencode-engram-learning@1.15.1"
+}

@@ -1,0 +1,11 @@
+{
+  "enabled": true,
+  "options": {
+    "OPENCODE_CONFIG_DIR": "",
+    "XDG_STATE_HOME": "",
+    "native node path": ""
+  },
+  "environment": {},
+  "permissions": [],
+  "install_command": "BUILD_REQUIRED: clone pinned commit, npm ci, install native host and Chrome extension; configure src/plugin-entry-v2.js"
+}

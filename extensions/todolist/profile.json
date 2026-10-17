@@ -1,0 +1,20 @@
+{
+  "id": "todolist",
+  "source": "opencode-todolist@0.6.1",
+  "status": "v2-reviewed",
+  "install_command": "opencode plugin add opencode-todolist@0.6.1",
+  "documented_options": [
+    "auto-todos.json",
+    "priority",
+    "always",
+    "match",
+    "order",
+    "deduplicate",
+    "/todo-settings"
+  ],
+  "recommended_options": [
+    "Use auto-todos.json and /todo-settings; package exposes no generic plugin options schema."
+  ],
+  "research_report": "research/06-todolist.md",
+  "customization_policy": "Only documented options; no guessed keys."
+}

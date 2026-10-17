@@ -1,0 +1,16 @@
+{
+  "id": "delegation",
+  "source": "opencode-delegation@0.1.2",
+  "status": "v1-blocked",
+  "install_command": "BLOCKED: published package uses V1 API",
+  "documented_options": [
+    "agent.worker.model",
+    "agent.worker.steps",
+    "skills.paths"
+  ],
+  "recommended_options": [
+    "Requires a real V2 port before use."
+  ],
+  "research_report": "research/19-delegation.md",
+  "customization_policy": "Only documented options; no guessed keys."
+}

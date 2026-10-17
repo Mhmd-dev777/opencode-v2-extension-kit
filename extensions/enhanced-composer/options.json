@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "options": {
+    "layout": "",
+    "appearance": "",
+    "overflow.preset": "",
+    "refreshHz": "",
+    "bytesPerToken": ""
+  },
+  "environment": {},
+  "permissions": [],
+  "install_command": "opencode plugin add opencode2-enhanced-composer@0.1.0"
+}

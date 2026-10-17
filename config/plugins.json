@@ -1,46 +1,132 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "opencode_major": 2,
+  "research_complete": true,
   "plugins": [
     {
       "id": "hindsight",
       "requested": "brycehamrick/opencode-v2-hindsight",
-      "source": "github:brycehamrick/opencode-v2-hindsight",
+      "source": "@brycehamrick/opencode-hindsight@0.2.2",
       "kind": "git",
-      "status": "unverified",
-      "note": "Repository named by user; verify package entrypoint and V2 API before enabling."
+      "status": "v2-reviewed",
+      "note": "Repository named by user; verify package entrypoint and V2 API before enabling.",
+      "install_command": "opencode plugin add @brycehamrick/opencode-hindsight@0.2.2",
+      "documented_options": [
+        "dynamicBankId",
+        "dynamicBankGranularity",
+        "retainMode",
+        "stripSecrets",
+        "stripBase64",
+        "recallBudget",
+        "recallContextTurns",
+        "coreMemoryMaxTokens",
+        "perMessageRecallMaxTokens",
+        "compactionRecallMaxTokens",
+        "debug"
+      ],
+      "recommended_options": [
+        "Use environment variables for HINDSIGHT_API_TOKEN; prefer dynamicBankId with agent/gitProject isolation."
+      ],
+      "research_report": "research/01-hindsight.md",
+      "source_verified": true
     },
     {
       "id": "dynamic-context-pruning",
       "requested": "opencode-dynamic-context-pruning",
-      "source": "github:Tarquinen/opencode-dynamic-context-pruning",
+      "source": "@tarquinen/opencode-dcp@3.2.0",
       "kind": "git",
-      "status": "unverified",
-      "note": "Publicly referenced repository; verify current branch/package entrypoint."
+      "status": "needs-review",
+      "note": "Publicly referenced repository; verify current branch/package entrypoint.",
+      "install_command": "opencode plugin add @tarquinen/opencode-dcp@3.2.0",
+      "documented_options": [
+        "enabled",
+        "autoUpdate",
+        "pruneNotification",
+        "compress.mode",
+        "compress.permission",
+        "protectedTools",
+        "protectedFilePatterns",
+        "strategies.deduplication.enabled",
+        "strategies.purgeErrors.enabled",
+        "turnProtection.turns",
+        "manualMode.enabled"
+      ],
+      "recommended_options": [
+        "Package contains a real V2 entrypoint but declares a V1-oriented peer; test exact host."
+      ],
+      "research_report": "research/02-dynamic-context-pruning.md",
+      "source_verified": true
     },
     {
       "id": "memini-v2",
       "requested": "eleboucher/opencode-memini-v2",
-      "source": "github:eleboucher/opencode-memini-v2",
+      "source": "@eleboucher/opencode-memini-v2@0.7.36",
       "kind": "git",
-      "status": "unverified",
-      "note": "Repository named by user; verify package entrypoint and V2 API before enabling."
+      "status": "v2-reviewed",
+      "note": "Repository named by user; verify package entrypoint and V2 API before enabling.",
+      "install_command": "opencode plugin add @eleboucher/opencode-memini-v2@0.7.36",
+      "documented_options": [
+        "base_url",
+        "namespace",
+        "recall",
+        "capture",
+        "capture_child_sessions",
+        "recall_limit",
+        "recall_max_tokens",
+        "recall_min_score",
+        "inject_cooldown_ms",
+        "inject_cooldown_prompts",
+        "recall_budget_ms",
+        "timeout_ms",
+        "fallback_on_error",
+        "auto_update"
+      ],
+      "recommended_options": [
+        "Requires a running Memini server; keep MEMINI_API_KEY and HTTPS settings outside Git."
+      ],
+      "research_report": "research/03-memini-v2.md",
+      "source_verified": true
     },
     {
       "id": "simple-memory",
       "requested": "knikolov/opencode-plugin-simple-memory",
-      "source": "github:knikolov/opencode-plugin-simple-memory",
+      "source": "@knikolov/opencode-plugin-simple-memory@2.0.0",
       "kind": "git",
-      "status": "unverified",
-      "note": "Repository named by user; verify package entrypoint and V2 API before enabling."
+      "status": "v2-reviewed",
+      "note": "Repository named by user; verify package entrypoint and V2 API before enabling.",
+      "install_command": "opencode plugin add '@knikolov/opencode-plugin-simple-memory@2.0.0'",
+      "documented_options": [
+        "autoLoad",
+        "autoSave",
+        "autoHookTimeoutMs",
+        "contextLimit",
+        "contextMaxChars",
+        "contextMinScore",
+        "autoSaveScope"
+      ],
+      "recommended_options": [
+        "Uses Bun filesystem APIs; verify runtime and repository identity before production."
+      ],
+      "research_report": "research/04-simple-memory.md",
+      "source_verified": true
     },
     {
       "id": "claude-memory",
       "requested": "lansya/opencode-plugin-claude-memory",
-      "source": "github:lansya/opencode-plugin-claude-memory",
+      "source": "@lansya/opencode-plugin-claude-memory@1.0.7",
       "kind": "git",
-      "status": "unverified",
-      "note": "Repository named by user; verify package entrypoint and V2 API before enabling."
+      "status": "v1-blocked",
+      "note": "Repository named by user; verify package entrypoint and V2 API before enabling.",
+      "install_command": "BLOCKED: published candidate targets OpenCode V1",
+      "documented_options": [
+        "once",
+        "debug"
+      ],
+      "recommended_options": [
+        "Do not install on V2; requires a real port to @opencode/plugin."
+      ],
+      "research_report": "research/05-claude-memory.md",
+      "source_verified": true
     },
     {
       "id": "todolist",
@@ -48,55 +134,157 @@
       "source": "opencode-todolist@0.6.1",
       "kind": "npm",
       "status": "v2-reviewed",
-      "note": "npm package metadata declares @opencode/plugin >=2.0.0."
+      "note": "npm package metadata declares @opencode/plugin >=2.0.0.",
+      "install_command": "opencode plugin add opencode-todolist@0.6.1",
+      "documented_options": [
+        "auto-todos.json",
+        "priority",
+        "always",
+        "match",
+        "order",
+        "deduplicate",
+        "/todo-settings"
+      ],
+      "recommended_options": [
+        "Use auto-todos.json and /todo-settings; package exposes no generic plugin options schema."
+      ],
+      "research_report": "research/06-todolist.md",
+      "source_verified": true
     },
     {
       "id": "spec",
       "requested": "opencode-spec",
-      "source": "github:devcxl/opencode-spec",
+      "source": "github:devcxl/opencode-spec#74723f567967c6c68805e8b7eb93f2df5c1c0ce5",
       "kind": "git",
-      "status": "unverified",
-      "note": "Exact public repository resolved; inspect its current package before enabling."
+      "status": "v2-source-unreleased",
+      "note": "Exact public repository resolved; inspect its current package before enabling.",
+      "install_command": "BUILD_REQUIRED: clone pinned commit, npm ci, npm run build, then load ./dist",
+      "documented_options": [
+        "directory",
+        "OPENSPEC_DIR"
+      ],
+      "recommended_options": [
+        "Published npm artifact is V1; only pinned source master is V2-shaped and must be built."
+      ],
+      "research_report": "research/07-spec.md",
+      "source_verified": true
     },
     {
       "id": "lockie-agent",
       "requested": "oh-y-lockie-agent",
       "source": "oh-y-lockie-agent@2.0.1",
       "kind": "npm",
-      "status": "needs-review",
-      "note": "npm package resolved, but repository and V2 API details are not exposed in metadata."
+      "status": "v2-reviewed",
+      "note": "npm package resolved, but repository and V2 API details are not exposed in metadata.",
+      "install_command": "opencode plugin add oh-y-lockie-agent@2.0.1",
+      "documented_options": [
+        "telemetry",
+        "agent.<name>.model",
+        "agent.<name>.disable",
+        "mcp.<name>.enabled",
+        "updateCheck.enabled",
+        "updateCheck.intervalHours",
+        "target.chip",
+        "target.family"
+      ],
+      "recommended_options": [
+        "Set telemetry=false explicitly and audit default MCP/network access."
+      ],
+      "research_report": "research/08-lockie-agent.md",
+      "source_verified": true
     },
     {
       "id": "shell-magazine",
       "requested": "opencode-shell-magazine",
       "source": "opencode-shell-magazine@0.1.4",
       "kind": "npm",
-      "status": "needs-review",
-      "note": "TUI plugin; package peer dependencies target OpenTUI and should be tested in the exact V2 build."
+      "status": "v2-reviewed",
+      "note": "TUI plugin; package peer dependencies target OpenTUI and should be tested in the exact V2 build.",
+      "install_command": "opencode plugin add opencode-shell-magazine@0.1.4",
+      "documented_options": [
+        "max entries",
+        "order",
+        "time format",
+        "show cwd",
+        "show exit code",
+        "show subagents",
+        "footer indicator",
+        "border",
+        "notification threshold",
+        "historyDirectory"
+      ],
+      "recommended_options": [
+        "TUI-only; customize through its slash-command settings rather than invented JSON keys."
+      ],
+      "research_report": "research/09-shell-magazine.md",
+      "source_verified": true
     },
     {
       "id": "enhanced-composer",
       "requested": "opencode2-enhanced-composer",
       "source": "opencode2-enhanced-composer@0.1.0",
       "kind": "npm",
-      "status": "needs-review",
-      "note": "Package requires Node >=26.4.0; treat as environment-sensitive."
+      "status": "v2-reviewed",
+      "note": "Package requires Node >=26.4.0; treat as environment-sensitive.",
+      "install_command": "opencode plugin add opencode2-enhanced-composer@0.1.0",
+      "documented_options": [
+        "layout",
+        "appearance",
+        "overflow.preset",
+        "refreshHz",
+        "bytesPerToken"
+      ],
+      "recommended_options": [
+        "Requires Node >=26.4.0 and OpenCode >=2.0.11; TUI cli.json configuration."
+      ],
+      "research_report": "research/10-enhanced-composer.md",
+      "source_verified": true
     },
     {
       "id": "mega-skillstate",
       "requested": "mega-skillstate",
-      "source": "github:megablue/mega-skillstate",
+      "source": "github:megablue/mega-skillstate#4aa74bd96fbea502e5efcc92994839c01b34c38f",
       "kind": "git",
-      "status": "unverified",
-      "note": "Exact public repository resolved; inspect its current package before enabling."
+      "status": "v2-reviewed",
+      "note": "Exact public repository resolved; inspect its current package before enabling.",
+      "install_command": "opencode plugin add 'github:megablue/mega-skillstate#4aa74bd96fbea502e5efcc92994839c01b34c38f'",
+      "documented_options": [
+        "enabled",
+        "min",
+        "keepRecentTurns",
+        "collapseOlder",
+        "protectFirstUserMessage",
+        "allowSubagentSessions",
+        "seedFromTools",
+        "trackTools",
+        "nudgeWhenStale",
+        "staleAfter",
+        "manualCommand",
+        "debug",
+        "maxResultChars",
+        "sigmaCondenseChars",
+        "sigmaWarnTokens"
+      ],
+      "recommended_options": [
+        "Pin full SHA; npm package is not published."
+      ],
+      "research_report": "research/11-mega-skillstate.md",
+      "source_verified": true
     },
     {
       "id": "pstack",
       "requested": "falentio/opencode-pstack",
-      "source": "github:falentio/opencode-pstack",
+      "source": "@falentio/opencode-pstack@1.1.0",
       "kind": "git",
-      "status": "unverified",
-      "note": "Repository named by user; verify package entrypoint and V2 API before enabling."
+      "status": "v2-reviewed",
+      "note": "Repository named by user; verify package entrypoint and V2 API before enabling.",
+      "install_command": "opencode plugin add @falentio/opencode-pstack@1.1.0",
+      "documented_options": [],
+      "recommended_options": [
+        "No documented plugin-specific options; use native skills/agents for customization."
+      ],
+      "research_report": "research/12-pstack.md",
+      "source_verified": true
     },
     {
       "id": "engram-learning",
@@ -104,15 +292,44 @@
       "source": "opencode-engram-learning@1.15.1",
       "kind": "npm",
       "status": "needs-review",
-      "note": "npm metadata declares peer @opencode-ai/plugin ^1.4.3; do not claim V2 compatibility without a port."
+      "note": "npm metadata declares peer @opencode-ai/plugin ^1.4.3; do not claim V2 compatibility without a port.",
+      "install_command": "opencode plugin add opencode-engram-learning@1.15.1",
+      "documented_options": [
+        "ENGRAM_HOME",
+        "/learn",
+        "/review-loop",
+        "/coach",
+        "focus",
+        "visuals"
+      ],
+      "recommended_options": [
+        "Has a V2 adapter but still declares a V1 peer; runtime-test exact V2."
+      ],
+      "research_report": "research/13-engram-learning.md",
+      "source_verified": true
     },
     {
       "id": "headroom",
       "requested": "opencode-headroom",
       "source": "opencode-headroom@0.1.0",
       "kind": "npm",
-      "status": "needs-review",
-      "note": "npm metadata declares peer @opencode-ai/plugin *; inspect entrypoint for V2 API."
+      "status": "v1-blocked",
+      "note": "npm metadata declares peer @opencode-ai/plugin *; inspect entrypoint for V2 API.",
+      "install_command": "BLOCKED: published package is V1-only",
+      "documented_options": [
+        "enabled",
+        "min_tokens_to_compress",
+        "live_zone_only",
+        "real_time",
+        "cache_align",
+        "verbose",
+        "ccr_db_path"
+      ],
+      "recommended_options": [
+        "Requires a real V2 port; do not enable published package."
+      ],
+      "research_report": "research/14-headroom.md",
+      "source_verified": true
     },
     {
       "id": "tasks",
@@ -120,7 +337,24 @@
       "source": "opencode-tasks@1.0.0",
       "kind": "npm",
       "status": "v2-reviewed",
-      "note": "npm package metadata declares @opencode/plugin ^2.0.29."
+      "note": "npm package metadata declares @opencode/plugin ^2.0.29.",
+      "install_command": "opencode plugin add opencode-tasks@1.0.0 && bunx opencode-tasks@1.0.0 --install",
+      "documented_options": [
+        "schedule",
+        "cwd",
+        "description",
+        "session_name",
+        "model",
+        "agent",
+        "timeout",
+        "permission",
+        "enabled"
+      ],
+      "recommended_options": [
+        "Requires OpenCode >=2.0.29 and Bun; scheduler install is separate from plugin add."
+      ],
+      "research_report": "research/15-tasks.md",
+      "source_verified": true
     },
     {
       "id": "timeline-viewer",
@@ -128,7 +362,14 @@
       "source": null,
       "kind": "unknown",
       "status": "unresolved",
-      "note": "No authoritative package/repository source was found; intentionally blocked."
+      "note": "No authoritative package/repository source was found; intentionally blocked.",
+      "install_command": "BLOCKED: no authoritative npm or Git source found",
+      "documented_options": [],
+      "recommended_options": [
+        "User must provide an exact official repository or package."
+      ],
+      "research_report": "research/16-timeline-viewer.md",
+      "source_verified": false
     },
     {
       "id": "server-image",
@@ -136,31 +377,75 @@
       "source": null,
       "kind": "unknown",
       "status": "unresolved",
-      "note": "Looks like an image/deployment label, not a verified plugin package; intentionally blocked."
+      "note": "Looks like an image/deployment label, not a verified plugin package; intentionally blocked.",
+      "install_command": "BLOCKED: exact name is not a verified plugin",
+      "documented_options": [],
+      "recommended_options": [
+        "Do not substitute the reversed near-match opencode-image-server."
+      ],
+      "research_report": "research/17-server-image.md",
+      "source_verified": false
     },
     {
       "id": "chrome-bridge",
       "requested": "opencode-chrome-bridge",
-      "source": null,
+      "source": "github:pmgallardodev/opencode-chrome-bridge#8d6954c7d7d3ba953395fcfd725cc64455e7e7cc",
       "kind": "unknown",
-      "status": "unresolved",
-      "note": "No authoritative package/repository source was found; intentionally blocked."
+      "status": "v2-conditional",
+      "note": "No authoritative package/repository source was found; intentionally blocked.",
+      "install_command": "BUILD_REQUIRED: clone pinned commit, npm ci, install native host and Chrome extension; configure src/plugin-entry-v2.js",
+      "documented_options": [
+        "OPENCODE_CONFIG_DIR",
+        "XDG_STATE_HOME",
+        "native node path"
+      ],
+      "recommended_options": [
+        "Full native messaging and Chrome extension stack; V2 adapter is conditional and root package is V1."
+      ],
+      "research_report": "research/18-chrome-bridge.md",
+      "source_verified": true
     },
     {
       "id": "delegation",
       "requested": "opencode-delegation",
       "source": "opencode-delegation@0.1.2",
       "kind": "npm",
-      "status": "needs-review",
-      "note": "npm package metadata has no public repository field and declares @opencode-ai/plugin; inspect before V2 use."
+      "status": "v1-blocked",
+      "note": "npm package metadata has no public repository field and declares @opencode-ai/plugin; inspect before V2 use.",
+      "install_command": "BLOCKED: published package uses V1 API",
+      "documented_options": [
+        "agent.worker.model",
+        "agent.worker.steps",
+        "skills.paths"
+      ],
+      "recommended_options": [
+        "Requires a real V2 port before use."
+      ],
+      "research_report": "research/19-delegation.md",
+      "source_verified": true
     },
     {
       "id": "morph-plugin",
       "requested": "opencode-morph-plugin",
-      "source": null,
+      "source": "@morphllm/opencode-morph-plugin@2.0.17",
       "kind": "unknown",
-      "status": "unresolved",
-      "note": "No authoritative package/repository source was found; intentionally blocked."
+      "status": "v1-blocked",
+      "note": "No authoritative package/repository source was found; intentionally blocked.",
+      "install_command": "BLOCKED: scoped package is V1 API despite version 2",
+      "documented_options": [
+        "MORPH_API_KEY",
+        "MORPH_COMPACT",
+        "MORPH_EDIT",
+        "MORPH_WARPGREP",
+        "MORPH_WARPGREP_GITHUB",
+        "MORPH_COMPACT_RATIO",
+        "MORPH_COMPACT_PRESERVE_RECENT"
+      ],
+      "recommended_options": [
+        "Requires a real V2 port; keep API key in environment only."
+      ],
+      "research_report": "research/20-morph-plugin.md",
+      "source_verified": true
     }
   ]
 }

@@ -1,0 +1,11 @@
+{
+  "enabled": false,
+  "options": {
+    "agent.worker.model": "",
+    "agent.worker.steps": "",
+    "skills.paths": ""
+  },
+  "environment": {},
+  "permissions": [],
+  "install_command": "BLOCKED: published package uses V1 API"
+}

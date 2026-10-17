@@ -1,0 +1,19 @@
+{
+  "id": "engram-learning",
+  "source": "opencode-engram-learning@1.15.1",
+  "status": "needs-review",
+  "install_command": "opencode plugin add opencode-engram-learning@1.15.1",
+  "documented_options": [
+    "ENGRAM_HOME",
+    "/learn",
+    "/review-loop",
+    "/coach",
+    "focus",
+    "visuals"
+  ],
+  "recommended_options": [
+    "Has a V2 adapter but still declares a V1 peer; runtime-test exact V2."
+  ],
+  "research_report": "research/13-engram-learning.md",
+  "customization_policy": "Only documented options; no guessed keys."
+}

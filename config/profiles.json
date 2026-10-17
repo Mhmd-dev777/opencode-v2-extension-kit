@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "profiles": {
+    "safe": {
+      "description": "Only extensions reviewed as V2-compatible.",
+      "allow_risky": false,
+      "include_status": [
+        "v2-reviewed"
+      ]
+    },
+    "productivity": {
+      "description": "Safe productivity extensions for todo and scheduled work.",
+      "allow_risky": false,
+      "ids": [
+        "todolist",
+        "tasks"
+      ]
+    },
+    "memory": {
+      "description": "Memory-related extensions; review before use.",
+      "allow_risky": true,
+      "ids": [
+        "hindsight",
+        "memini-v2",
+        "simple-memory",
+        "claude-memory",
+        "engram-learning",
+        "headroom",
+        "mega-skillstate"
+      ]
+    },
+    "ui": {
+      "description": "TUI and interface extensions; environment-sensitive.",
+      "allow_risky": true,
+      "ids": [
+        "shell-magazine",
+        "enhanced-composer",
+        "timeline-viewer"
+      ]
+    },
+    "workflow": {
+      "description": "Specification, delegation, stack, and agent workflow extensions.",
+      "allow_risky": true,
+      "ids": [
+        "spec",
+        "lockie-agent",
+        "pstack",
+        "delegation",
+        "morph-plugin"
+      ]
+    },
+    "all-known": {
+      "description": "Every entry with an authoritative source; unresolved names remain blocked.",
+      "allow_risky": true,
+      "include_resolved": true
+    }
+  }
+}

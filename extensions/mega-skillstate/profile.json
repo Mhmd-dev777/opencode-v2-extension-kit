@@ -1,0 +1,28 @@
+{
+  "id": "mega-skillstate",
+  "source": "github:megablue/mega-skillstate#4aa74bd96fbea502e5efcc92994839c01b34c38f",
+  "status": "v2-reviewed",
+  "install_command": "opencode plugin add 'github:megablue/mega-skillstate#4aa74bd96fbea502e5efcc92994839c01b34c38f'",
+  "documented_options": [
+    "enabled",
+    "min",
+    "keepRecentTurns",
+    "collapseOlder",
+    "protectFirstUserMessage",
+    "allowSubagentSessions",
+    "seedFromTools",
+    "trackTools",
+    "nudgeWhenStale",
+    "staleAfter",
+    "manualCommand",
+    "debug",
+    "maxResultChars",
+    "sigmaCondenseChars",
+    "sigmaWarnTokens"
+  ],
+  "recommended_options": [
+    "Pin full SHA; npm package is not published."
+  ],
+  "research_report": "research/11-mega-skillstate.md",
+  "customization_policy": "Only documented options; no guessed keys."
+}

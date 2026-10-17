@@ -1,0 +1,15 @@
+{
+  "id": "claude-memory",
+  "source": "@lansya/opencode-plugin-claude-memory@1.0.7",
+  "status": "v1-blocked",
+  "install_command": "BLOCKED: published candidate targets OpenCode V1",
+  "documented_options": [
+    "once",
+    "debug"
+  ],
+  "recommended_options": [
+    "Do not install on V2; requires a real port to @opencode/plugin."
+  ],
+  "research_report": "research/05-claude-memory.md",
+  "customization_policy": "Only documented options; no guessed keys."
+}

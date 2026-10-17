@@ -1,0 +1,12 @@
+{
+  "id": "server-image",
+  "source": null,
+  "status": "unresolved",
+  "install_command": "BLOCKED: exact name is not a verified plugin",
+  "documented_options": [],
+  "recommended_options": [
+    "Do not substitute the reversed near-match opencode-image-server."
+  ],
+  "research_report": "research/17-server-image.md",
+  "customization_policy": "Only documented options; no guessed keys."
+}

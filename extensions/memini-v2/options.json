@@ -1,0 +1,22 @@
+{
+  "enabled": true,
+  "options": {
+    "base_url": "",
+    "namespace": "",
+    "recall": "",
+    "capture": "",
+    "capture_child_sessions": "",
+    "recall_limit": "",
+    "recall_max_tokens": "",
+    "recall_min_score": "",
+    "inject_cooldown_ms": "",
+    "inject_cooldown_prompts": "",
+    "recall_budget_ms": "",
+    "timeout_ms": "",
+    "fallback_on_error": "",
+    "auto_update": ""
+  },
+  "environment": {},
+  "permissions": [],
+  "install_command": "opencode plugin add @eleboucher/opencode-memini-v2@0.7.36"
+}

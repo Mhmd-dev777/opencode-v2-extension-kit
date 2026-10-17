@@ -1,0 +1,16 @@
+{
+  "id": "chrome-bridge",
+  "source": "github:pmgallardodev/opencode-chrome-bridge#8d6954c7d7d3ba953395fcfd725cc64455e7e7cc",
+  "status": "v2-conditional",
+  "install_command": "BUILD_REQUIRED: clone pinned commit, npm ci, install native host and Chrome extension; configure src/plugin-entry-v2.js",
+  "documented_options": [
+    "OPENCODE_CONFIG_DIR",
+    "XDG_STATE_HOME",
+    "native node path"
+  ],
+  "recommended_options": [
+    "Full native messaging and Chrome extension stack; V2 adapter is conditional and root package is V1."
+  ],
+  "research_report": "research/18-chrome-bridge.md",
+  "customization_policy": "Only documented options; no guessed keys."
+}

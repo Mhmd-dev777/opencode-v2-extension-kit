@@ -1,0 +1,18 @@
+{
+  "enabled": true,
+  "options": {
+    "max entries": "",
+    "order": "",
+    "time format": "",
+    "show cwd": "",
+    "show exit code": "",
+    "show subagents": "",
+    "footer indicator": "",
+    "border": "",
+    "notification threshold": "",
+    "historyDirectory": ""
+  },
+  "environment": {},
+  "permissions": [],
+  "install_command": "opencode plugin add opencode-shell-magazine@0.1.4"
+}

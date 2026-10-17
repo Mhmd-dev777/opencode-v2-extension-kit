@@ -1,0 +1,20 @@
+{
+  "id": "headroom",
+  "source": "opencode-headroom@0.1.0",
+  "status": "v1-blocked",
+  "install_command": "BLOCKED: published package is V1-only",
+  "documented_options": [
+    "enabled",
+    "min_tokens_to_compress",
+    "live_zone_only",
+    "real_time",
+    "cache_align",
+    "verbose",
+    "ccr_db_path"
+  ],
+  "recommended_options": [
+    "Requires a real V2 port; do not enable published package."
+  ],
+  "research_report": "research/14-headroom.md",
+  "customization_policy": "Only documented options; no guessed keys."
+}

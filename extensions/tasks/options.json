@@ -1,0 +1,17 @@
+{
+  "enabled": true,
+  "options": {
+    "schedule": "",
+    "cwd": "",
+    "description": "",
+    "session_name": "",
+    "model": "",
+    "agent": "",
+    "timeout": "",
+    "permission": "",
+    "enabled": ""
+  },
+  "environment": {},
+  "permissions": [],
+  "install_command": "opencode plugin add opencode-tasks@1.0.0 && bunx opencode-tasks@1.0.0 --install"
+}

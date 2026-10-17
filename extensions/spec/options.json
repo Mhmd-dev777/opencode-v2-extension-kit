@@ -1,0 +1,10 @@
+{
+  "enabled": false,
+  "options": {
+    "directory": "",
+    "OPENSPEC_DIR": ""
+  },
+  "environment": {},
+  "permissions": [],
+  "install_command": "BUILD_REQUIRED: clone pinned commit, npm ci, npm run build, then load ./dist"
+}

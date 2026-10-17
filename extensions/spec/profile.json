@@ -1,0 +1,15 @@
+{
+  "id": "spec",
+  "source": "github:devcxl/opencode-spec#74723f567967c6c68805e8b7eb93f2df5c1c0ce5",
+  "status": "v2-source-unreleased",
+  "install_command": "BUILD_REQUIRED: clone pinned commit, npm ci, npm run build, then load ./dist",
+  "documented_options": [
+    "directory",
+    "OPENSPEC_DIR"
+  ],
+  "recommended_options": [
+    "Published npm artifact is V1; only pinned source master is V2-shaped and must be built."
+  ],
+  "research_report": "research/07-spec.md",
+  "customization_policy": "Only documented options; no guessed keys."
+}
