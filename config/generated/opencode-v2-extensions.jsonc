@@ -10,6 +10,121 @@
   "opencode2-enhanced-composer@0.1.0",
   "github:megablue/mega-skillstate#4aa74bd96fbea502e5efcc92994839c01b34c38f",
   "@falentio/opencode-pstack@1.1.0",
-  "opencode-tasks@1.0.0"
+  "opencode-tasks@1.0.0",
+  {
+    "package": "@slkiser/opencode-quota@5.0.3",
+    "options": {
+      "core": {
+        "enabled": true,
+        "minIntervalMs": 120000,
+        "requestTimeoutMs": 10000,
+        "formatStyle": "singleWindow",
+        "quotaProjection": "runway",
+        "percentDisplayMode": "remaining"
+      },
+      "tui": {
+        "enableToast": true,
+        "showOnIdle": true,
+        "showOnQuestion": true,
+        "tuiCommandDisplay": "dialog"
+      },
+      "export": {
+        "enabled": false
+      },
+      "telemetry": {
+        "enabled": false
+      }
+    }
+  },
+  {
+    "package": "open-codebase-index@0.36.3",
+    "options": {
+      "embeddingProvider": "ollama",
+      "embeddingModel": "nomic-embed-text",
+      "autoIndex": true,
+      "watchFiles": true,
+      "maxFileSize": 1048576,
+      "maxResults": 8,
+      "hybridWeight": 0.65,
+      "exclude": [
+        ".git/**",
+        "node_modules/**",
+        "dist/**",
+        "build/**",
+        ".env*",
+        "**/*.pem",
+        "**/*.key",
+        ".opencode/index/**"
+      ]
+    }
+  },
+  {
+    "package": "opencode-supermemory@2.0.17",
+    "options": {
+      "recallMode": "direct",
+      "similarityThreshold": 0.72,
+      "maxMemories": 5,
+      "maxProjectMemories": 10,
+      "maxProfileItems": 5,
+      "injectProfile": true,
+      "compactionEnabled": true,
+      "captureEveryNTurns": 0,
+      "filterPrompt": "Never store secrets, credentials, API keys, private keys, or personal data."
+    }
+  },
+  {
+    "package": "@hueyexe/opencode-ensemble@0.18.0",
+    "options": {
+      "mergeOnCleanup": true,
+      "stallThresholdMs": 300000,
+      "stallMinSteps": 5,
+      "stallTokenThreshold": 200,
+      "timeoutMs": 1800000,
+      "rateLimitCapacity": 10,
+      "dashboardPort": 0,
+      "peerMessageLimit": 5,
+      "modelAssignment": "default",
+      "promptForModels": false
+    }
+  },
+  {
+    "package": "opencode-tavily@1.0.0",
+    "options": {
+      "clientName": "opencode",
+      "outputDir": ".tavily",
+      "requireCitations": true
+    }
+  },
+  {
+    "package": "@mohak34/opencode-notifier@1.0.0",
+    "options": {
+      "suppressWhenFocused": true,
+      "focusOnClick": false,
+      "deferCompleteUntilChildrenIdle": true,
+      "deferredCompleteTimeout": 30000,
+      "events": {
+        "permission": {
+          "notification": true,
+          "sound": true
+        },
+        "complete": {
+          "notification": true,
+          "sound": true
+        },
+        "error": {
+          "notification": true,
+          "sound": true
+        },
+        "question": {
+          "notification": true,
+          "sound": false
+        },
+        "subagent_complete": {
+          "notification": true,
+          "sound": false
+        }
+      }
+    }
+  }
 ]
 }
