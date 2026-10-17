@@ -1,83 +1,15 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "plugins": [
-  {
-    "package": "@brycehamrick/opencode-hindsight@0.2.2",
-    "options": {
-      "dynamicBankId": "",
-      "dynamicBankGranularity": "",
-      "retainMode": "",
-      "stripSecrets": "",
-      "stripBase64": "",
-      "recallBudget": "",
-      "recallContextTurns": "",
-      "coreMemoryMaxTokens": "",
-      "perMessageRecallMaxTokens": "",
-      "compactionRecallMaxTokens": "",
-      "debug": ""
-    }
-  },
-  {
-    "package": "@eleboucher/opencode-memini-v2@0.7.36",
-    "options": {
-      "base_url": "",
-      "namespace": "",
-      "recall": "",
-      "capture": "",
-      "capture_child_sessions": "",
-      "recall_limit": "",
-      "recall_max_tokens": "",
-      "recall_min_score": "",
-      "inject_cooldown_ms": "",
-      "inject_cooldown_prompts": "",
-      "recall_budget_ms": "",
-      "timeout_ms": "",
-      "fallback_on_error": "",
-      "auto_update": ""
-    }
-  },
-  {
-    "package": "@knikolov/opencode-plugin-simple-memory@2.0.0",
-    "options": {
-      "autoLoad": "",
-      "autoSave": "",
-      "autoHookTimeoutMs": "",
-      "contextLimit": "",
-      "contextMaxChars": "",
-      "contextMinScore": "",
-      "autoSaveScope": ""
-    }
-  },
-  {
-    "package": "github:megablue/mega-skillstate#4aa74bd96fbea502e5efcc92994839c01b34c38f",
-    "options": {
-      "enabled": "",
-      "min": "",
-      "keepRecentTurns": "",
-      "collapseOlder": "",
-      "protectFirstUserMessage": "",
-      "allowSubagentSessions": "",
-      "seedFromTools": "",
-      "trackTools": "",
-      "nudgeWhenStale": "",
-      "staleAfter": "",
-      "manualCommand": "",
-      "debug": "",
-      "maxResultChars": "",
-      "sigmaCondenseChars": "",
-      "sigmaWarnTokens": ""
-    }
-  },
-  {
-    "package": "opencode-engram-learning@1.15.1",
-    "options": {
-      "ENGRAM_HOME": "",
-      "/learn": "",
-      "/review-loop": "",
-      "/coach": "",
-      "focus": "",
-      "visuals": ""
-    }
-  }
+  "@brycehamrick/opencode-hindsight@0.2.2",
+  "@eleboucher/opencode-memini-v2@0.7.36",
+  "@knikolov/opencode-plugin-simple-memory@2.0.0",
+  "opencode-todolist@0.6.1",
+  "oh-y-lockie-agent@2.0.1",
+  "opencode-shell-magazine@0.1.4",
+  "opencode2-enhanced-composer@0.1.0",
+  "github:megablue/mega-skillstate#4aa74bd96fbea502e5efcc92994839c01b34c38f",
+  "@falentio/opencode-pstack@1.1.0",
+  "opencode-tasks@1.0.0"
 ]
 }

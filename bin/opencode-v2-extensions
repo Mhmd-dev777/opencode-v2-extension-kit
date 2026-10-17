@@ -52,7 +52,8 @@ for p in m['plugins']:
  options_path=os.path.join(sys.argv[5] if len(sys.argv)>5 else os.path.dirname(os.path.dirname(sys.argv[1])), 'extensions',p['id'],'options.json')
  try: cfg=json.load(open(options_path))
  except Exception: cfg={'options':{}}
- entry=p['source'] if not cfg.get('options') else {'package':p['source'],'options':cfg['options']}
+ clean={k:v for k,v in cfg.get('options',{}).items() if v not in ('',None,[],{})}
+ entry=p['source'] if not clean else {'package':p['source'],'options':clean}
  out.append(entry)
 path=os.path.join(os.environ.get('ROOT_JSON',os.path.dirname(os.path.dirname(sys.argv[1]))),'config/generated/opencode-v2-extensions.jsonc')
 with open(path,'w') as f:
