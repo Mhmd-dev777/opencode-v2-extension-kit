@@ -72,8 +72,9 @@ fi; }
 remove(){ check_opencode >/dev/null; [[ -f "$STATE_FILE" ]] || fail "No managed state found; refusing arbitrary removal."; python3 - "$STATE_FILE" "$CONFIG_DIR/opencode.json" <<'PY'
 import json,sys,os
 s=json.load(open(sys.argv[1])); path=sys.argv[2]
+import subprocess
 for src in s.get('managed_sources',[]):
- os.system('opencode plugin remove -- '+__import__('shlex').quote(src))
+ subprocess.run(['opencode','plugin','remove',src],check=False)
 if s.get('managed_local') and os.path.exists(path):
  d=json.load(open(path)); d['plugins']=[x for x in d.get('plugins',[]) if not (isinstance(x,dict) and x.get('package') in s['managed_local'])]; open(path,'w').write(json.dumps(d,indent=2)+'\n')
 import shutil
